@@ -1,7 +1,9 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "World.h"
+#include <fstream>
+
+#include "ResourceHolder.h"
 
 /**
 * This is Space Explorer's main class. It controls the
@@ -36,8 +38,16 @@ private:
     /// before they are handled
     sf::Event mEvent;
 
-    /// The world stores the level data.
-    World mWorld;
+    TextureHolder mTextures;
+
+    //
+    sf::Sprite mBackground;
+
+    sf::Sprite mPlayer;
+    sf::Vector2f mSpeed{1.0f, 0.0f};
+    float rotation;
+
+    bool keys[512];
 
 // Member functions
 private:
@@ -52,4 +62,5 @@ private:
 
     void closeGame();
     void handleResize(const sf::Event & e);
+    void handleKeyboard(const sf::Event & e, const bool & state);
 };

@@ -7,12 +7,20 @@ Game::Game()
     sf::VideoMode{ 800, 600 },
     // The title of this window
     "Space Explorer"
-    },
-    mWorld{mWindow}
+    }
 {
     // TODO: initialize stuff
-}
 
+    mTextures.loadFromFile("stars", "Resources/Textures/background.png");
+
+    mTextures.loadFromFile("ship", "Resources/Textures/spaceship.png");
+
+    mBackground.setTexture(mTextures.getResource("stars"));
+    mPlayer.setTexture(mTextures.getResource("ship"));
+
+    mWindow.setFramerateLimit(60);
+
+}
 
 void Game::run()
 {
@@ -40,6 +48,12 @@ void Game::handleEvents()
             case sf::Event::Resized:
                 handleResize(mEvent);
                 return;
+            case sf::Event::KeyPressed:
+                handleKeyboard(mEvent, true);
+                return;
+            case sf::Event::KeyReleased:
+                handleKeyboard(mEvent, false);
+                return;
             default:
                 return;
         }
@@ -58,16 +72,26 @@ void Game::handleResize(const sf::Event & e)
     mWindow.setSize({e.size.width, e.size.height});
 }
 
+void Game::handleKeyboard(const sf::Event & e, const bool & state)
+{
+    keys[e.key.code] = state;
+}
+
 void Game::update(const sf::Time & dt)
 {
-    mWorld.update(dt);
+    float s = sin(rotation), c = cos(rotation);
+
+    if(keys[sf::Keyboard::W])
+        mPlayer.move(mSpeed.x*s - mSpeed.y*s, mSpeed.x*s + mSpeed.y*c);
 }
 
 void Game::render()
 {
     mWindow.clear();
 
-    mWorld.draw();
+    mWindow.draw(mBackground);
+
+    mWindow.draw(mPlayer);
 
     mWindow.display();
 }
