@@ -1,8 +1,7 @@
 #pragma once
 
+#include <cstdlib>
 #include <SFML/Graphics.hpp>
-#include <fstream>
-
 #include "ResourceHolder.h"
 
 /**
@@ -44,10 +43,14 @@ private:
     sf::Sprite mBackground;
 
     sf::Sprite mPlayer;
-    sf::Vector2f mSpeed{1.0f, 0.0f};
-    float rotation;
+    sf::Vector2f position;
+    sf::Vector2f velocity;
+    float accel{1.0f}, damp{0.98f};
+    float rotation{0.0f};
 
     bool keys[512];
+
+    sf::View mView;
 
 // Member functions
 private:

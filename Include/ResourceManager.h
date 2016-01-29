@@ -16,6 +16,9 @@ public:
     Resource & getResource(const ID & id);
     const Resource & getResource(const ID & id) const;
 
+    // This is for textures only
+    void create(const unsigned int & width, const unsigned int & height, const ID & id);
+
 private:
     std::map<ID, std::unique_ptr<Resource>> mResourceMap;
 };

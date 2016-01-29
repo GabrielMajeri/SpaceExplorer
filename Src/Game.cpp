@@ -1,25 +1,46 @@
 #include "Game.h"
 
+#include <iostream>
+
+#define PI 3.1415f
+
+const unsigned int mWidth = 800, mHeight = 600;
+
 // Constructor
 Game::Game()
 : mWindow {
     // The width and height of the window
-    sf::VideoMode{ 800, 600 },
+    sf::VideoMode{ mWidth, mHeight },
     // The title of this window
     "Space Explorer"
+    },
+    mView{
+        {mWidth / 2, mHeight / 2},
+        {mWidth, mHeight}
     }
 {
-    // TODO: initialize stuff
+    std::fill(std::begin(keys), std::end(keys), false);
 
     mTextures.loadFromFile("stars", "Resources/Textures/background.png");
+    mTextures.loadFromFile("ship_stopped", "Resources/Textures/spaceship1.png");
+    mTextures.loadFromFile("ship_started", "Resources/Textures/spaceship2.png");
+    mTextures.getResource("ship_stopped").setSmooth(true);
+    mTextures.getResource("ship_started").setSmooth(true);
+    mTextures.getResource("stars").setSmooth(true);
+    mTextures.getResource("stars").setRepeated(true);
 
-    mTextures.loadFromFile("ship", "Resources/Textures/spaceship.png");
 
     mBackground.setTexture(mTextures.getResource("stars"));
-    mPlayer.setTexture(mTextures.getResource("ship"));
+    mBackground.setTextureRect({0, 0, mWidth * 100, mHeight * 100});
+    mBackground.setOrigin(mBackground.getTextureRect().width / 2, mBackground.getTextureRect().height / 2);
+
+    mPlayer.setTexture(mTextures.getResource("ship_stopped"));
 
     mWindow.setFramerateLimit(60);
 
+    mPlayer.setOrigin(mPlayer.getTextureRect().width / 2, mPlayer.getTextureRect().height / 2);
+    mPlayer.setPosition(mWindow.getSize().x / 2, mWindow.getSize().y / 2);
+    mView.zoom(0.75f);
 }
 
 void Game::run()
@@ -79,10 +100,41 @@ void Game::handleKeyboard(const sf::Event & e, const bool & state)
 
 void Game::update(const sf::Time & dt)
 {
-    float s = sin(rotation), c = cos(rotation);
+    if(keys[sf::Keyboard::Escape])
+        mIsRunning = false;
 
     if(keys[sf::Keyboard::W])
-        mPlayer.move(mSpeed.x*s - mSpeed.y*s, mSpeed.x*s + mSpeed.y*c);
+        velocity += {accel * (float)cos(rotation), accel * (float)sin(rotation)};
+
+    if(keys[sf::Keyboard::S])
+        velocity += {- accel * (float)cos(rotation), - accel * (float)sin(rotation)};
+
+    if(keys[sf::Keyboard::A])
+        rotation -= 0.1f;
+    if(keys[sf::Keyboard::D])
+        rotation += 0.1f;
+
+    if(abs(velocity.x) > 0) {
+        velocity.x *= damp;
+        mPlayer.setTexture(mTextures.getResource("ship_started"));
+    } else mPlayer.setTexture(mTextures.getResource("ship_stopped"));
+
+    if(abs(velocity.y) > 0){
+        velocity.y *= damp;
+        mPlayer.setTexture(mTextures.getResource("ship_started"));
+    } else mPlayer.setTexture(mTextures.getResource("ship_stopped"));
+
+    //if(abs(velocity.x) < 0.01f && abs(velocity.y) < 0.01f)
+        //velocity.x = 0, velocity.y = 0;
+
+    if(keys[sf::Keyboard::Space])
+        velocity.x *= 0.75f, velocity.y *= 0.75f;
+
+    position += velocity;
+    mPlayer.setPosition(position);
+    mPlayer.setRotation(rotation * 180.f / PI);
+
+    mView.setCenter(mPlayer.getPosition());
 }
 
 void Game::render()
@@ -92,6 +144,8 @@ void Game::render()
     mWindow.draw(mBackground);
 
     mWindow.draw(mPlayer);
+
+    mWindow.setView(mView);
 
     mWindow.display();
 }

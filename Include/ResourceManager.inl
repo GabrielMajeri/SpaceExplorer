@@ -45,3 +45,16 @@ const Res & ResourceManager<Res, ID>::getResource(const ID & id) const
 
     return *res->second;
 }
+
+template <typename Res, typename ID>
+void ResourceManager<Res, ID>::create(const unsigned int & width, const unsigned int & height, const ID & id)
+{
+    std::unique_ptr<Res> resource{new Res{ }};
+
+    if(resource->create(width, height) == false)
+        throw new std::runtime_error{ "Cannot create texture." };
+
+    auto insertResult = mResourceMap.insert(std::make_pair(id, std::move(resource)));
+
+    assert(insertResult.second);
+}
