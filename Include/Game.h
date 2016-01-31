@@ -1,69 +1,27 @@
 #pragma once
+#include "Global.h"
 
-#include <cstdlib>
-#include <SFML/Graphics.hpp>
-#include "ResourceHolder.h"
+#include "Graphics/Window.h"
+#include "World/World.h"
 
-/**
-* This is Space Explorer's main class. It controls the
-* game's window and connects the various subsystems.
-*
-* @author Gabriel
-*/
-class Game
-{
-// Public functions
+class Game : private sf::NonCopyable {
 public:
-    Game();
+	Game();
 
-    /// Run is called when game is started
-    void run();
+	void run();
 
-// Member variables
 private:
-    /// This is the game's main window
-    sf::RenderWindow mWindow;
+	Window mWindow;
 
-    /// Controls the game's loop
-    bool mIsRunning;
+	World mWorld;
 
-    /// Used for precise frame timing
-    sf::Clock mFrameClock;
+	sf::Font mFont;
+	sf::Text mText;
 
-    /// Frame time limit
-    const sf::Time FrameTimeTarget{ sf::seconds(1.0f / 60.0f) };
+	bool mKeys[2048];
 
-    /// Temporary variable to store events from the stack
-    /// before they are handled
-    sf::Event mEvent;
-
-    TextureHolder mTextures;
-
-    //
-    sf::Sprite mBackground;
-
-    sf::Sprite mPlayer;
-    sf::Vector2f position;
-    sf::Vector2f velocity;
-    float accel{1.0f}, damp{0.98f};
-    float rotation{0.0f};
-
-    bool keys[512];
-
-    sf::View mView;
-
-// Member functions
 private:
-    /// Handle events fills the event queue
-    void handleEvents();
-
-    /// Update does numerical integration by simulating one step of the game world
-    void update(const sf::Time & dt);
-
-    /// Render draws the screen
-    void render();
-
-    void closeGame();
-    void handleResize(const sf::Event & e);
-    void handleKeyboard(const sf::Event & e, const bool & state);
+	void handleInput(const sf::Event & e);
+	void update(const sf::Time & dt);
+	void draw(sf::RenderTarget & t);
 };
