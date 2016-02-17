@@ -21,6 +21,8 @@
 
 /// Console IO for debugging
 #include <iostream>
+/// File IO for loading/saving
+#include <fstream>
 
 /// SFML Library includes
 #include <SFML/System.hpp>

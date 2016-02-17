@@ -6,7 +6,7 @@ class Game;
 class Window;
 
 struct Context {
-	explicit Context(Game& game) noexcept;
+	Context(Game& game) noexcept;
 	
 	Game& game;
 	Window& window;

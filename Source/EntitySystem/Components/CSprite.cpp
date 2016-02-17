@@ -2,10 +2,11 @@
 #include "EntitySystem/Components/CSprite.hpp"
 #include "Base/Game.hpp"
 
-CSprite::CSprite(Context& ctx, const sf::Texture& tex, const sf::IntRect& texRect) noexcept
-	: mContext{ ctx }, mView{ mContext.window.getView() }, mSprite{ tex, texRect }
+CSprite::CSprite(Context& ctx, const sf::Texture& tex, Metadata::TextureMeta texMeta) noexcept
+	: mContext{ ctx }, mView{ mContext.window.getView() }, mTextureMeta( texMeta ),
+	mSprite { tex, mTextureMeta.parts[0] }
 {
-	mSprite.setOrigin(texRect.width / 2.f, texRect.height / 2.f);
+	mSprite.setOrigin(mTextureMeta.parts[0].width / 2.f, mTextureMeta.parts[0].height / 2.f);
 }
 
 const sf::FloatRect CSprite::getGlobalBounds() const noexcept

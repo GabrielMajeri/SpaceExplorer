@@ -1,11 +1,12 @@
 #pragma once
 #include "Common.hpp"
 #include "StateManager/IState.hpp"
-#include "EntitySystem/EntityManager.hpp"
+#include "World/World.hpp"
+
 
 class PlayingState final : public IState {
 public:
-	 explicit PlayingState(StateManager& manager, Context& ctx) noexcept;
+	 PlayingState(StateManager& manager, Context& ctx) noexcept;
 	~PlayingState();
 
 	void handleEvent(const sf::Event& e) noexcept override;
@@ -13,5 +14,5 @@ public:
 	void render(sf::RenderTarget& t) const noexcept override;
 
 private:
-	EntityManager mEntities{};
+	World mWorld;
 };

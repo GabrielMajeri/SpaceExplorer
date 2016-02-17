@@ -5,10 +5,11 @@
 #include "EntitySystem/Component.hpp"
 #include "EntitySystem/Components/CTransformable.hpp"
 #include "EntitySystem/Components/CVelocity.hpp"
+#include "Utilities/MetadataParser.h"
 
 class CSprite final : public Component {
 public:
-	explicit CSprite(Context& ctx, const sf::Texture& tex, const sf::IntRect& texRect) noexcept;
+	explicit CSprite(Context& ctx, const sf::Texture& tex, Metadata::TextureMeta texMeta) noexcept;
 	~CSprite() = default;
 
 	void init() noexcept override;
@@ -19,6 +20,7 @@ public:
 
 	Context& mContext;
 	const sf::View& mView;
+	Metadata::TextureMeta mTextureMeta; 
 	sf::Sprite mSprite;
 	float mRotation{ 0.f };
 
