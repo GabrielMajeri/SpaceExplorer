@@ -13,6 +13,12 @@ Apăsați tasta ESCAPE pentru a ieși din program.
 TitleScreen::TitleScreen(StateManager& man)
 : State{ man }, field{ ctx }
 {
+	ctx.fonts.load("Normal", ctx.om.getString("Font_Normal"));
+	ctx.fonts.load("Bold", ctx.om.getString("Font_Bold"));
+
+	ctx.tex.load("Blank", "Data/Textures/Blank.png");
+	ctx.tex["Blank"].setRepeated(true);
+
 	ctx.fonts.load("TitleScreenFont", ctx.om.getString("Font_Titlu"));
 
 	titleText.setFont(ctx.fonts["TitleScreenFont"]);

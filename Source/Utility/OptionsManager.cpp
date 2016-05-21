@@ -73,6 +73,11 @@ sf::Color OptionsManager::getColor(const std::string& key) const
 	return sf::Color{ findNextInt(), findNextInt(), findNextInt() };
 }
 
+sf::Keyboard::Key OptionsManager::getKey(const std::string& key) const
+{
+    return static_cast<sf::Keyboard::Key>(getInt(key));
+}
+
 void OptionsManager::printAll() const noexcept
 {
 	for(const auto& pair : options)

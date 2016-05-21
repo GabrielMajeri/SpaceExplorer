@@ -38,7 +38,6 @@ void StateManager::clear() noexcept
 	ops.push_back(Operation{Operation::Clear, StateID::None});
 }
 
-#include <iostream>
 void StateManager::updateGameState()
 {
 	for(const auto& nextOp : ops)
@@ -86,7 +85,11 @@ void StateManager::updateGameState()
 void StateManager::handleEvent(const sf::Event& ev)
 {
 	assert(!stateStack.empty());
-	stateStack.back()->handleEvent(ev);
+	if(ev.type == sf::Event::Resized)
+		for(auto& state : stateStack)
+			state->handleEvent(ev);
+	else
+		stateStack.back()->handleEvent(ev);
 }
 
 void StateManager::update(const float dt)

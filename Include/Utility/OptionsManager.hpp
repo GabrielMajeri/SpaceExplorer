@@ -5,6 +5,7 @@
 
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/System/String.hpp>
+#include <SFML/Window/Keyboard.hpp>
 
 class OptionsManager
 {
@@ -27,6 +28,8 @@ public:
 	bool getBool(const std::string& key) const;
 	/// Gets a RGB color
 	sf::Color getColor(const std::string& key) const;
+	/// Gets a key binding
+	sf::Keyboard::Key getKey(const std::string& key) const;
 
 	/// DEBUG: prints all the key-value pairs
 	void printAll() const noexcept;

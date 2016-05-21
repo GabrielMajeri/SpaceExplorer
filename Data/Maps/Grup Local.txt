@@ -5,13 +5,31 @@ Sistemul Solar și stelele aflate la maxim 50 Unități Astronomice.
 
 // Dimensiuni
 // Scara 1000px = 1AU
-1 1000
+1
 
 // Marime X si Y (fata de scara)
-10 10
+2000 2000
 
-// Sistemul initial
-0
+// Sistemul initial (sau -1 daca nu este determinat)
+-1
 
-// Pozitiile sistemelor / stelelor / corpurilor ceresti
+// Pozitiile sistemelor / stelelor / corpurilor ceresti si informatiile lor
 // Coordonate polare fata de centrul geometric al hartii
+// De forma (distanta, unghi in grade)
+0 0 
+Sistemul Solar
+Local/Solar.txt
+BlueStar
+Stars/BlueStar.png
+
+1000 45
+Alfa Centauri
+.
+BlueStar
+.
+
+200 -30
+Sirius
+.
+BlueStar
+.

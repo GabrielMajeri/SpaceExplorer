@@ -5,6 +5,9 @@
 
 namespace Utility
 {
+	template <typename T>
+	constexpr T PI = T(3.14159265359);
+
 	/// Centers a text's origin
 	void centerText(sf::Text& text);
 
@@ -14,4 +17,12 @@ namespace Utility
 	float getRandomFloat();
 
 	float getRandomFloat(float min, float max);
+
+	constexpr float toRadians(float deg) { return deg * PI<float> / 180.f; }
+	constexpr float toDegrees(float rad) { return rad * 180.f / PI<float>; }
+
+	sf::Vector2f fromPolar(float d, float angl);
+	std::pair<float, float> fromCartesian(const sf::Vector2f& vec);
+
+	float clamp(float val, float mn, float mx);
 }

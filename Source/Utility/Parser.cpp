@@ -23,7 +23,6 @@ bool Parser::skipToNextLine()
 		break;
 	}
 
-
 	cursor = 0u;
 	return true;
 }
@@ -44,6 +43,32 @@ void Parser::getNextString(std::string& str, bool cvt)
 			first = pos - 2;
 		}
 	}
+}
+
+float Parser::getNextFloat()
+{
+    std::string num;
+
+    while(!(currentLine[cursor] == '-' || std::isdigit(currentLine[cursor]) || currentLine[cursor] == '.') && cursor < currentLine.size())
+		++cursor;
+
+    while((currentLine[cursor] == '-' || std::isdigit(currentLine[cursor]) || currentLine[cursor] == '.') && cursor < currentLine.size())
+		num += currentLine[cursor++];
+
+    return std::stof(num);
+}
+
+int32_t Parser::getNextInt()
+{
+	std::string num;
+
+    while(!(currentLine[cursor] == '-' || std::isdigit(currentLine[cursor])) && cursor < currentLine.size())
+		++cursor;
+
+    while((currentLine[cursor] == '-' || std::isdigit(currentLine[cursor])) && cursor < currentLine.size())
+		num += currentLine[cursor++];
+
+    return std::stol(num);
 }
 
 void Parser::getNextKeyValuePair(std::string& key, std::string& value, const char& separator)

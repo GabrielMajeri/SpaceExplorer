@@ -18,5 +18,5 @@ public:
     void draw(sf::RenderTarget& tgt) const noexcept override;
 
 private:
-	Galaxy galaxy;
+	std::unique_ptr<Galaxy> galaxy;
 };

@@ -17,6 +17,10 @@ public:
 
 	void getNextKeyValuePair(std::string& key, std::string& value, const char& separator);
 
+	float getNextFloat();
+
+	int32_t getNextInt();
+
 private:
 	std::ifstream file;
 

@@ -29,4 +29,19 @@ namespace Utility
 		std::uniform_real_distribution<> gen(min, max);
 		return gen(e2);
 	}
+
+	float clamp(float val, float mn, float mx)
+	{
+		return std::max(mn, std::min(val, mx));
+	}
+
+	sf::Vector2f fromPolar(float d, float angl)
+	{
+        return { d * std::cos(angl), d * std::sin(angl) };
+	}
+
+	std::pair<float, float> fromCartesian(const sf::Vector2f& vec)
+	{
+		return std::pair<float, float>{ std::sqrt(vec.x * vec.x + vec.y * vec.y), std::atan2(vec.y, vec.x) };
+	}
 }

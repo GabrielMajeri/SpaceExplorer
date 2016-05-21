@@ -30,10 +30,19 @@ MarimeTextCopyright=14
 // (scazi -51 din rândul tastei)
 /// Setarea la -1 dezactivează tasta
 Tasta_EcranComplet=95
+Tasta_ZoomOut=68
+Tasta_ZoomIn=67
 
 /// Fonturi
 Font_Normal=Data/Fonts/Ubuntu-Regular.ttf
 Font_Bold=Data/Fonts/Ubuntu-Bold.ttf
 Font_Titlu=Data/Fonts/Orbitron-Regular.ttf
+
+/// Nava Spatiala
+Nava_Masa=20
+Nava_PutereMotor=500
+Nava_PutereRotire=100
+Nava_VitezaMax=100
+Nava_Incetinire=0.95
 
 Harta_Initiala=Grup Local.txt

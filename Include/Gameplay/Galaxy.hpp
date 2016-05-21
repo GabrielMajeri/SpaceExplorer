@@ -1,8 +1,11 @@
 #pragma once
 
 #include <string>
+#include <array>
 
 #include "Graphics/Starfield.hpp"
+#include "Gameplay/Spaceship.hpp"
+#include "Gameplay/System.hpp"
 
 struct Context;
 
@@ -26,4 +29,28 @@ private:
 	int32_t currentSystem{ -1 };
 	float scale;
 
+	sf::FloatRect bounds;
+
+	sf::View currentView;
+	float viewZoom{ 1 };
+
+	Starfield backgroundStars;
+
+	std::unique_ptr<Spaceship> spaceship;
+
+	struct SystemView
+	{
+		SystemView(Context& ctx, sf::Texture& tex, const std::string& label, uint32_t pos);
+
+		Orbiter view;
+		uint32_t assocSystem;
+	};
+	std::vector<System> systems;
+	std::vector<SystemView> systemViews;
+
+	std::array<sf::RectangleShape, 4u> borders;
+
+	void recalculateView();
+
+	void setUpBorders();
 };

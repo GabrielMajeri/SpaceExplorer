@@ -12,12 +12,6 @@ Game::Game()
 {
 	ctx.windowSize = window.getSize();
 
-	ctx.fonts.load("Normal", ctx.om.getString("Font_Normal"));
-	ctx.fonts.load("Bold", ctx.om.getString("Font_Bold"));
-
-	ctx.tex.load("Blank", "Data/Textures/Blank.png");
-	ctx.tex["Blank"].setRepeated(true);
-
 	setWindowOptions();
 }
 

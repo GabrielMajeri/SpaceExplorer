@@ -5,6 +5,9 @@
 Starfield::Starfield(Context& ctx)
 : ctx{ ctx }, randSeed{ Utility::getRandomFloat(10, 1000) }
 {
+	ctx.tex.load("Blank", "Data/Textures/Blank.png");
+	ctx.tex["Blank"].setRepeated(true);
+
 	cover.setTexture(ctx.tex["Blank"]);
 	setSize(ctx.windowSize);
 
