@@ -2,7 +2,12 @@
 Program educativ care permite utilizatorului să exploreze Sistemul Solar 
 și câteva sisteme apropiate. 
 
-Distanțele sunt la scară. Dimensiunile stelelor / planetelor nu sunt la scară.
+Distanțele sunt la scară. Dimensiunile stelelor / planetelor nu sunt la scară (altfel ar fi prea mici).
+
+### Control
+Nava spațială se deplasează cu W/A/S/D (poate fi schimbat in setări).
+Tastele + si - dau Zoom In, respectiv Zoom Out (pot fi schimbate in setări).
+ESCAPE de 2 ori iese din program.
 
 ### Cerințe de sistem
 * Windows, Mac, Linux
@@ -10,7 +15,7 @@ Distanțele sunt la scară. Dimensiunile stelelor / planetelor nu sunt la scară
 * Monitor cu rezolutie 800x600 sau mai mare
 * Tastatură
 * Peste 512 MB RAM
-* 100 MB spațiu liber 
+* 100 MB spațiu liber
 
 ### Tehnologii folosite
 * C++14
@@ -26,4 +31,3 @@ GNU General Public License V3
 ### Resurse 
 * NASA
 * wikipedia.org
-* incompetech.com
