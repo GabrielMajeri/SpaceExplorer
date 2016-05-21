@@ -11,6 +11,7 @@ ESCAPE de 2 ori iese din program.
 
 ### Cerințe de sistem
 * Windows, Mac, Linux
+* Procesor Pentium 4 sau mai nou (suport SSE2)
 * OpenGL 1.1 sau mai nou
 * Monitor cu rezolutie 800x600 sau mai mare
 * Tastatură
