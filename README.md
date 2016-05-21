@@ -20,11 +20,11 @@ ESCAPE de 2 ori iese din program.
 
 ### Tehnologii folosite
 * C++14
-* SFML 2.3.2
+* SFML
 
 ### Compilare
 * Compilator [GNU G++](https://gcc.gnu.org/) cu suport pentru C++14
-* Biblioteca [SFML 2.3.2](http://www.sfml-dev.org/download/sfml/2.3.2/)
+* Biblioteca [SFML Dev](http://www.sfml-dev.org/artifacts/by-branch/master/)
 
 ### Licență
 GNU General Public License V3
