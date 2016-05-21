@@ -10,8 +10,12 @@ public:
 
 	void draw(sf::RenderTarget& tgt) const noexcept;
 
+	const sf::FloatRect& getBounds() const noexcept;
+
 private:
 	Context& ctx;
+
+	sf::FloatRect bounds;
 
 	std::vector<Orbiter> objects;
 };

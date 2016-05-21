@@ -3,35 +3,32 @@
 Parser::Parser(const std::string& path)
 : file{ path }, cursor{ 0u }
 {
+	// Try to open the file
 	if(!file.good())
 		throw std::runtime_error{ "[PARSER] Could not load file " + path };
 }
 
-#include <iostream>
 bool Parser::skipToNextLine()
 {
-    while(true)
+	// Keep reading lines
+    do
 	{
 		if(file.eof())
 			return false;
 
+		// Get the next line
 		std::getline(file, currentLine);
-
-		if(currentLine.empty() || (currentLine[0] == '/' && currentLine[1] == '/'))
-			continue;
-
-		break;
 	}
+	// Check if line is empty or a comment ("//")
+	while(currentLine.empty() || (currentLine[0] == '/' && currentLine[1] == '/'));
 
+	// Reset the cursor
 	cursor = 0u;
 	return true;
 }
 
 void Parser::getNextString(std::string& str, bool cvt)
 {
-	if(skipToNextLine() == false)
-		throw std::runtime_error{ "[PARSER] Could not find another string." };
-
 	str = currentLine;
 
 	if(cvt)

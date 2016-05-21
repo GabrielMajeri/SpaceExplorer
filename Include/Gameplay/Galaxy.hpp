@@ -27,7 +27,6 @@ private:
 	std::string description;
 
 	int32_t currentSystem{ -1 };
-	float scale;
 
 	sf::FloatRect bounds;
 
@@ -40,10 +39,10 @@ private:
 
 	struct SystemView
 	{
-		SystemView(Context& ctx, sf::Texture& tex, const std::string& label, uint32_t pos);
+		SystemView(Context& ctx, sf::Texture& tex, const std::string& label, int32_t pos);
 
 		Orbiter view;
-		uint32_t assocSystem;
+		int32_t assocSystem;
 	};
 	std::vector<System> systems;
 	std::vector<SystemView> systemViews;

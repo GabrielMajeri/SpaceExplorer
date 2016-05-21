@@ -13,6 +13,9 @@ Sistemul Solar și stelele aflate la maxim 50 Unități Astronomice.
 // Sistemul initial (sau -1 daca nu este determinat)
 -1
 
+// Pozitia initiala in spatiu (se ia in considerare daca mai sus sistemul initial e -1)
+-250 -250
+
 // Pozitiile sistemelor / stelelor / corpurilor ceresti si informatiile lor
 // Coordonate polare fata de centrul geometric al hartii
 // De forma (distanta, unghi in grade)

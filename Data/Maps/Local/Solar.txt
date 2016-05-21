@@ -1,0 +1,8 @@
+// Scara
+1
+
+// Dimensiuni
+5000 5000
+
+// Obiectele din sistem
+// Cu coordonate polare

@@ -18,5 +18,5 @@ sf::FloatRect Entity::getLocalBounds() const noexcept
 
 sf::FloatRect Entity::getGlobalBounds() const noexcept
 {
-	return getTransform().transformRect(sprite.getLocalBounds());
+	return getTransform().transformRect(sprite.getGlobalBounds());
 }

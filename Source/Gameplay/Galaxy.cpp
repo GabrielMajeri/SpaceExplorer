@@ -6,7 +6,7 @@
 #include "Utility/Tools.hpp"
 
 
-Galaxy::SystemView::SystemView(Context& ctx, sf::Texture& tex, const std::string& label, uint32_t pos)
+Galaxy::SystemView::SystemView(Context& ctx, sf::Texture& tex, const std::string& label, int32_t pos)
 : view{ ctx, tex, label }, assocSystem{ pos }
 {
 	view.setOrigin(view.getLocalBounds().width / 2, view.getLocalBounds().height / 2);
@@ -15,13 +15,20 @@ Galaxy::SystemView::SystemView(Context& ctx, sf::Texture& tex, const std::string
 Galaxy::Galaxy(Context& ctx, const std::string& filePath)
 : ctx{ ctx }, backgroundStars{ ctx }
 {
+	ctx.tex.load("SpaceshipTexture", "Data/Textures/Spaceship.png");
+	ctx.tex["SpaceshipTexture"].setSmooth(true);
+	spaceship = std::make_unique<Spaceship>(ctx, ctx.tex["SpaceshipTexture"]);
+
 	Parser parser("Data/Maps/" + filePath);
 
+	parser.skipToNextLine();
 	parser.getNextString(name);
+
+	parser.skipToNextLine();
 	parser.getNextString(description);
 
 	parser.skipToNextLine();
-	scale = parser.getNextFloat();
+	float scale = parser.getNextFloat();
 
 	parser.skipToNextLine();
 	float w = scale * parser.getNextFloat(), h = scale * parser.getNextFloat();
@@ -30,22 +37,32 @@ Galaxy::Galaxy(Context& ctx, const std::string& filePath)
 	parser.skipToNextLine();
 	currentSystem = parser.getNextInt();
 
+	parser.skipToNextLine();
+	float x = parser.getNextFloat(), y = parser.getNextFloat();
+	if(currentSystem < 0) spaceship->move(x, y);
+
 	while(parser.skipToNextLine())
 	{
 		float dist = parser.getNextFloat();
 		float rad = Utility::toRadians(parser.getNextFloat());
 
 		std::string name;
+		parser.skipToNextLine();
 		parser.getNextString(name);
 
 		std::string path;
+		parser.skipToNextLine();
 		parser.getNextString(path);
 
 		if(path != ".")
 			systems.emplace_back(ctx, path);
 
 		std::string texName, texPath;
+
+		parser.skipToNextLine();
 		parser.getNextString(texName);
+
+		parser.skipToNextLine();
 		parser.getNextString(texPath);
 
 		ctx.tex.load(texName, "Data/Textures/" + texPath);
@@ -53,10 +70,6 @@ Galaxy::Galaxy(Context& ctx, const std::string& filePath)
 		systemViews.emplace_back(ctx, ctx.tex[texName], name, (path != "." ? systems.size() - 1 : -1));
 		systemViews.back().view.setPosition(scale * Utility::fromPolar(dist, rad));
 	}
-
-	ctx.tex.load("SpaceshipTexture", "Data/Textures/Spaceship.png");
-	ctx.tex["SpaceshipTexture"].setSmooth(true);
-	spaceship = std::make_unique<Spaceship>(ctx, ctx.tex["SpaceshipTexture"]);
 
 	recalculateView();
 }
@@ -92,11 +105,26 @@ void Galaxy::handleEvent(const sf::Event& e)
 void Galaxy::update(const float dt)
 {
 	spaceship->update(dt);
-	currentView.setCenter(spaceship->getPosition());
 
-	if(spaceship->getPosition().x < bounds.left || spaceship->getPosition().y < bounds.top
-		|| spaceship->getPosition().x > bounds.left + bounds.width || spaceship->getPosition().y > bounds.top + bounds.height)
-		spaceship->stop();
+	if(!inSystem())
+	{
+		currentView.setCenter(spaceship->getPosition());
+
+		if(spaceship->getPosition().x < bounds.left || spaceship->getPosition().y < bounds.top
+			|| spaceship->getPosition().x > bounds.left + bounds.width || spaceship->getPosition().y > bounds.top + bounds.height)
+			spaceship->stop();
+
+		const auto bd = spaceship->getGlobalBounds();
+		for(auto it = std::begin(systemViews); it != std::end(systemViews); ++it)
+			if(it->assocSystem >= 0 && bd.intersects(it->view.getGlobalBounds()))
+                currentSystem = it - std::begin(systemViews);
+	}
+	else // in system
+	{
+		const auto& pos = spaceship->getPosition();
+		const auto& bd = systems[currentSystem].getBounds();
+		currentView.setCenter({ Utility::clamp(pos.x, bd.left, bd.left + bd.width), Utility::clamp(pos.y, bd.top, bd.top + bd.height) });
+	}
 }
 
 void Galaxy::draw(sf::RenderTarget& tgt) const noexcept
