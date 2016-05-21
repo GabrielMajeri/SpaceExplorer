@@ -1,13 +1,22 @@
-#include "Common.hpp"
-#include "Base/Game.hpp"
+#include "Game.hpp"
+#include <iostream>
 
 int main()
 {
-	// Construct a new game instance
-	Game game;
+	try
+	{
+		Game game;
 
-	// Run the game
-	game.run();
+		game.run();
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << std::endl;
 
-	return EXIT_SUCCESS;
+		getchar();
+
+		return EXIT_FAILURE;
+	}
+
+    return EXIT_SUCCESS;
 }

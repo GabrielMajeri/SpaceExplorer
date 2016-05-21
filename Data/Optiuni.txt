@@ -1,0 +1,39 @@
+////// Fișier de optiuni
+/// Format:
+/// cheie = valoare
+
+/// Opțiuni fereastră
+NumeFereastra=Space Explorer - Explorează Spațiul
+LatimeFereastra=800
+LungimeFereastra=600
+AscundeMouse=1
+
+EcranComplet=0
+
+// Valoarea 0 indica FPS nelimitat
+LimitaFPS=0
+Fizica_DeltaTimp=0.0166666
+SincronizareVerticala=1
+AntiAliasing=4
+
+/// Titlul
+// Marimea in pixeli a titlului
+MarimeTextTitlu=60
+/// Culoarea RGB a fontului
+CuloareTextTitlu=(255, 255, 255)
+
+MarimeTextInformatii=18
+MarimeTextCopyright=14
+
+/// Taste
+// Pentru o listă completă: http://www.sfml-dev.org/documentation/2.3.2/Keyboard_8hpp_source.php
+// (scazi -51 din rândul tastei)
+/// Setarea la -1 dezactivează tasta
+Tasta_EcranComplet=95
+
+/// Fonturi
+Font_Normal=Data/Fonts/Ubuntu-Regular.ttf
+Font_Bold=Data/Fonts/Ubuntu-Bold.ttf
+Font_Titlu=Data/Fonts/Orbitron-Regular.ttf
+
+Harta_Initiala=Grup Local.txt

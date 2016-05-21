@@ -1,0 +1,17 @@
+// Numele hartii
+Grupul Local de Stele
+// Descriere
+Sistemul Solar și stelele aflate la maxim 50 Unități Astronomice. 
+
+// Dimensiuni
+// Scara 1000px = 1AU
+1 1000
+
+// Marime X si Y (fata de scara)
+10 10
+
+// Sistemul initial
+0
+
+// Pozitiile sistemelor / stelelor / corpurilor ceresti
+// Coordonate polare fata de centrul geometric al hartii
