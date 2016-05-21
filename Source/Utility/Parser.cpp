@@ -36,7 +36,7 @@ void Parser::getNextString(std::string& str, bool cvt)
 
 	if(cvt)
 	{
-		auto pos = 0u, first = pos;
+		uint64_t pos = 0u, first = pos;
 		while((pos = str.find("\\n", first)) != std::string::npos)
 		{
 			str.replace(pos, 2, "\n");
