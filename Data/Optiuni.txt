@@ -49,6 +49,9 @@ Nava_Incetinire=0.95
 CuloareMargineGalaxie=(0, 40, 150, 100)
 CuloareMargineSistem=(200, 50, 20, 128)
 MarimeMargineSistem=30
+MarimeTextGalaxie=20
+MarimeTextDescriere=18
+CuloareFundalDescriere=(50, 50, 50, 128)
 
 /// Harta care este deschisa cand se deschide programul
 Harta_Initiala=Grup Local.txt

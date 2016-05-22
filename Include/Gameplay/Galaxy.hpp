@@ -40,19 +40,28 @@ private:
 
 	struct SystemView
 	{
-		SystemView(Context& ctx, sf::Texture& tex, const std::string& label, int32_t pos);
+		SystemView(Context& ctx, sf::Texture& tex, const std::string& label, const std::string& description, int32_t pos);
 
 		Orbiter view;
 		int32_t assocSystem;
+
+		std::string description;
 	};
+
 	std::vector<System> systems;
 	std::vector<SystemView> systemViews;
 
 	std::array<sf::RectangleShape, 4u> borders;
 
-	void recalculateView();
+	sf::Text enterSystemInfo, systemDescription;
+	float diagonal;
 
+	sf::RectangleShape descBackground;
+	bool nearEntrypoint{ false }, nearSystem{ false };
+
+	void recalculateView();
 	void setUpBorders();
+	void rescaleUI();
 
 	void moveIntoSystem(int32_t current, int32_t viewPos);
 	void leaveSystem();

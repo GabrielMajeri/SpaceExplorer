@@ -2,6 +2,7 @@
 
 #include "Utility/Parser.hpp"
 
+
 System::System(Context& ctx, const sf::View& view, const std::string& path)
 : ctx{ ctx }, currentView{ view }
 {

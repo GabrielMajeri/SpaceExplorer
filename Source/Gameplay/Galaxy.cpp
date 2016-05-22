@@ -5,9 +5,13 @@
 
 #include "Utility/Tools.hpp"
 
+constexpr const char enterText[]
+{
+	"Apăsați ENTER pentru a intra în "
+};
 
-Galaxy::SystemView::SystemView(Context& ctx, sf::Texture& tex, const std::string& label, int32_t pos)
-: view{ ctx, tex, label }, assocSystem{ pos }
+Galaxy::SystemView::SystemView(Context& ctx, sf::Texture& tex, const std::string& label, const std::string& description, int32_t pos)
+: view{ ctx, tex, label }, assocSystem{ pos }, description{ description }
 {
 	view.setOrigin(view.getLocalBounds().width / 2, view.getLocalBounds().height / 2);
 }
@@ -50,6 +54,10 @@ Galaxy::Galaxy(Context& ctx, const std::string& filePath)
 		parser.skipToNextLine();
 		parser.getNextString(name);
 
+		std::string desc;
+		parser.skipToNextLine();
+		parser.getNextString(desc);
+
 		std::string path;
 		parser.skipToNextLine();
 		parser.getNextString(path);
@@ -67,11 +75,20 @@ Galaxy::Galaxy(Context& ctx, const std::string& filePath)
 
 		ctx.tex.load(texName, "Data/Textures/" + texPath);
 
-		systemViews.emplace_back(ctx, ctx.tex[texName], name, (path != "." ? systems.size() - 1 : -1));
+		systemViews.emplace_back(ctx, ctx.tex[texName], name, desc, (path != "." ? systems.size() - 1 : -1));
 		systemViews.back().view.setPosition(scale * Utility::fromPolar(dist, rad));
 	}
 
+	enterSystemInfo.setFont(ctx.fonts["Bold"]);
+
+	systemDescription.setFont(ctx.fonts["Normal"]);
+
+	diagonal = std::sqrt(ctx.windowSize.x * ctx.windowSize.x + ctx.windowSize.y * ctx.windowSize.y);
+
+	descBackground.setFillColor(ctx.om.getColorA("CuloareFundalDescriere"));
+
 	recalculateView();
+	rescaleUI();
 }
 
 bool Galaxy::inSystem() const noexcept
@@ -85,6 +102,7 @@ void Galaxy::handleEvent(const sf::Event& e)
 	{
 		backgroundStars.setSize(ctx.windowSize);
 		recalculateView();
+		rescaleUI();
 	}
 	else if(e.type == sf::Event::KeyPressed)
 	{
@@ -92,13 +110,17 @@ void Galaxy::handleEvent(const sf::Event& e)
 		{
 			if(viewZoom > 1)
 				viewZoom -= 1;
+
+			recalculateView();
 		}
 		else if(e.key.code == ctx.om.getKey("Tasta_ZoomOut"))
 		{
 			if(viewZoom < 10)
 				viewZoom += 1;
+
+			recalculateView();
 		}
-		recalculateView();
+
 	}
 }
 
@@ -113,12 +135,25 @@ void Galaxy::update(const float dt)
 			|| spaceship->getPosition().x > bounds.left + bounds.width || spaceship->getPosition().y > bounds.top + bounds.height)
 			spaceship->stop();
 
+		nearSystem = false;
+		nearEntrypoint = false;
 		const auto bd = spaceship->getGlobalBounds();
 		for(auto it = std::begin(systemViews); it != std::end(systemViews); ++it)
-			if(it->assocSystem >= 0 && bd.intersects(it->view.getGlobalBounds()))
+			if(bd.intersects(it->view.getGlobalBounds()))
 			{
-				if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
-					moveIntoSystem(it->assocSystem, it - std::begin(systemViews));
+				nearSystem = true;
+
+				if(it->assocSystem >= 0)
+				{
+					nearEntrypoint = true;
+					enterSystemInfo.setString(Utility::fromUTF8(enterText) + it->view.getLabel() + ".");
+					if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
+						moveIntoSystem(it->assocSystem, it - std::begin(systemViews));
+				}
+
+				systemDescription.setString(it->description);
+
+				rescaleUI();
 			}
 	}
 	else // in system
@@ -152,6 +187,21 @@ void Galaxy::draw(sf::RenderTarget& tgt) const noexcept
 
         for(const auto& border : borders)
 			tgt.draw(border);
+
+		if(nearSystem)
+		{
+			tgt.setView(tgt.getDefaultView());
+			tgt.draw(descBackground);
+			tgt.draw(systemDescription);
+			tgt.setView(currentView);
+		}
+
+		if(nearEntrypoint)
+		{
+			tgt.setView(tgt.getDefaultView());
+			tgt.draw(enterSystemInfo);
+			tgt.setView(currentView);
+		}
 	}
 
 	// Finally draw the spaceship
@@ -165,7 +215,7 @@ void Galaxy::recalculateView()
 	currentView.setSize(ctx.windowSize.x * viewZoom, ctx.windowSize.y * viewZoom);
 
 	for(auto& system : systems)
-			system.setUpBorders();
+		system.setUpBorders();
 
 	setUpBorders();
 }
@@ -207,6 +257,8 @@ void Galaxy::moveIntoSystem(int32_t i, int32_t viewPos)
 	const auto ang = spaceship->getRotation();
 
 	spaceship->setPosition(mid.x - r * std::cos(Utility::toRadians(ang)), mid.y - r * std::sin(Utility::toRadians(ang)));
+
+	recalculateView();
 }
 
 void Galaxy::leaveSystem()
@@ -215,4 +267,25 @@ void Galaxy::leaveSystem()
 
 	currentSystem = -1;
 	currentSystemView = -1;
+}
+
+void Galaxy::rescaleUI()
+{
+	float newDiagonal = std::sqrt(ctx.windowSize.x * ctx.windowSize.x + ctx.windowSize.y * ctx.windowSize.y);
+	float scaleFactor = newDiagonal / diagonal;
+
+	if(scaleFactor >= 1.5) scaleFactor = 1.5;
+
+	enterSystemInfo.setCharacterSize(scaleFactor * ctx.om.getUInt("MarimeTextGalaxie"));
+
+	Utility::centerText(enterSystemInfo);
+	enterSystemInfo.setPosition(ctx.windowSize.x / 2, 50);
+
+	systemDescription.setCharacterSize(scaleFactor * ctx.om.getUInt("MarimeTextDescriere"));
+
+	Utility::centerText(systemDescription);
+	systemDescription.setPosition(ctx.windowSize.x / 2, ctx.windowSize.y - systemDescription.getLocalBounds().height * 1.5);
+
+	descBackground.setSize({systemDescription.getLocalBounds().width + 20, systemDescription.getLocalBounds().height + 20});
+	descBackground.setPosition(systemDescription.getGlobalBounds().left - 10, systemDescription.getGlobalBounds().top - 10);
 }

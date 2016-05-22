@@ -11,6 +11,7 @@ public:
 
 	virtual void update(const float dt) override;
 
+	const sf::String& getLabel() const noexcept;
 private:
 	virtual void draw(sf::RenderTarget& tgt, sf::RenderStates states) const noexcept override;
 

@@ -36,6 +36,7 @@ private:
 
 	/// Buffer for the current line
 	std::string currentLine;
+
 	/// Cursor stores the current position in the buffer
 	uint32_t cursor;
 };

@@ -27,3 +27,8 @@ void Orbiter::draw(sf::RenderTarget& tgt, sf::RenderStates states) const noexcep
 	tgt.draw(sprite, states);
 	tgt.draw(label, states);
 }
+
+const sf::String& Orbiter::getLabel() const noexcept
+{
+	return label.getString();
+}

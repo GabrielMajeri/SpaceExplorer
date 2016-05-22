@@ -21,18 +21,21 @@ Sistemul Solar și stelele aflate la maxim 50 Unități Astronomice.
 // De forma (distanta, unghi in grade)
 0 0 
 Sistemul Solar
+Sistemul Solar este format din Soare, cele 8 planete care se invart in jurul lui\n si multe alte corpuri mai mici.\n Aici se afla si Pamantul.
 Local/Solar.txt
 BlueStar
 Stars/BlueStar.png
 
 1000 45
 Alfa Centauri
+Alfa Centauri este o stea.
 .
 BlueStar
 .
 
 200 -30
 Sirius
+Sirius este o stea.
 .
 BlueStar
 .
