@@ -55,7 +55,7 @@ Galaxy::Galaxy(Context& ctx, const std::string& filePath)
 		parser.getNextString(path);
 
 		if(path != ".")
-			systems.emplace_back(ctx, path);
+			systems.emplace_back(ctx, currentView, path);
 
 		std::string texName, texPath;
 
@@ -105,11 +105,10 @@ void Galaxy::handleEvent(const sf::Event& e)
 void Galaxy::update(const float dt)
 {
 	spaceship->update(dt);
+	currentView.setCenter(spaceship->getPosition());
 
 	if(!inSystem())
 	{
-		currentView.setCenter(spaceship->getPosition());
-
 		if(spaceship->getPosition().x < bounds.left || spaceship->getPosition().y < bounds.top
 			|| spaceship->getPosition().x > bounds.left + bounds.width || spaceship->getPosition().y > bounds.top + bounds.height)
 			spaceship->stop();
@@ -117,13 +116,20 @@ void Galaxy::update(const float dt)
 		const auto bd = spaceship->getGlobalBounds();
 		for(auto it = std::begin(systemViews); it != std::end(systemViews); ++it)
 			if(it->assocSystem >= 0 && bd.intersects(it->view.getGlobalBounds()))
-                currentSystem = it - std::begin(systemViews);
+			{
+				if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
+					moveIntoSystem(it->assocSystem, it - std::begin(systemViews));
+			}
 	}
 	else // in system
 	{
 		const auto& pos = spaceship->getPosition();
-		const auto& bd = systems[currentSystem].getBounds();
-		currentView.setCenter({ Utility::clamp(pos.x, bd.left, bd.left + bd.width), Utility::clamp(pos.y, bd.top, bd.top + bd.height) });
+		const auto& sz = spaceship->getLocalBounds();
+		const auto& bds = systems[currentSystem].getBounds();
+
+		if(pos.x < bds.left || pos.x + sz.width > bds.left + bds.width
+			|| pos.y < bds.top || pos.y + sz.height > bds.top + bds.height)
+				leaveSystem();
 	}
 }
 
@@ -158,6 +164,9 @@ void Galaxy::recalculateView()
 {
 	currentView.setSize(ctx.windowSize.x * viewZoom, ctx.windowSize.y * viewZoom);
 
+	for(auto& system : systems)
+			system.setUpBorders();
+
 	setUpBorders();
 }
 
@@ -184,5 +193,26 @@ void Galaxy::setUpBorders()
     d.setPosition(bounds.left, bounds.top + bounds.height);
 
     for(auto& border : borders)
-		border.setFillColor({0, 40, 150, 100});
+		border.setFillColor(ctx.om.getColorA("CuloareMargineGalaxie"));
+}
+
+void Galaxy::moveIntoSystem(int32_t i, int32_t viewPos)
+{
+	currentSystemView = viewPos;
+	currentSystem = i;
+	auto& sys = systems[currentSystem];
+
+	const auto r = sys.getRadius() - 50;
+	const auto mid = sys.getCenter();
+	const auto ang = spaceship->getRotation();
+
+	spaceship->setPosition(mid.x - r * std::cos(Utility::toRadians(ang)), mid.y - r * std::sin(Utility::toRadians(ang)));
+}
+
+void Galaxy::leaveSystem()
+{
+	spaceship->setPosition(systemViews[currentSystemView].view.getPosition());
+
+	currentSystem = -1;
+	currentSystemView = -1;
 }

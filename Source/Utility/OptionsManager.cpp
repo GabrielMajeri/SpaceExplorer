@@ -51,6 +51,8 @@ bool OptionsManager::getBool(const std::string& key) const
 	return options.at(key) == "1";
 }
 
+
+
 sf::Color OptionsManager::getColor(const std::string& key) const
 {
 	const auto& value = options.at(key);
@@ -71,6 +73,28 @@ sf::Color OptionsManager::getColor(const std::string& key) const
 	};
 
 	return sf::Color{ findNextInt(), findNextInt(), findNextInt() };
+}
+
+sf::Color OptionsManager::getColorA(const std::string& key) const
+{
+	const auto& value = options.at(key);
+	uint32_t i = 0u;
+
+	// Gets the next 8-bit unsigned integer value
+	auto findNextInt = [&]() -> uint8_t
+	{
+		uint8_t result = 0u;
+
+		while(!std::isdigit(value[i]))
+			++i;
+
+		while(std::isdigit(value[i]) && i < value.size())
+			result = (result * 10u) + (value[i++] - '0');
+
+		return result;
+	};
+
+	return sf::Color{ findNextInt(), findNextInt(), findNextInt(), findNextInt() };
 }
 
 sf::Keyboard::Key OptionsManager::getKey(const std::string& key) const

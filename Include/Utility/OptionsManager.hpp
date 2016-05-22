@@ -16,18 +16,28 @@ public:
 	/// Getters for different value types
 	/// Gets a string
 	const std::string& getString(const std::string& key) const;
+
 	/// Gets a wide string
 	sf::String getUTFString(const std::string& key) const;
+
 	/// Gets an unsigned int
 	uint32_t getUInt(const std::string& key) const;
+
 	/// Gets an int
 	int32_t getInt(const std::string& key) const;
+
 	/// Gets a float
 	float getFloat(const std::string& key) const;
+
 	/// Gets a boolean
 	bool getBool(const std::string& key) const;
+
 	/// Gets a RGB color
 	sf::Color getColor(const std::string& key) const;
+
+	/// Gets a RGBA color
+	sf::Color getColorA(const std::string& key) const;
+
 	/// Gets a key binding
 	sf::Keyboard::Key getKey(const std::string& key) const;
 

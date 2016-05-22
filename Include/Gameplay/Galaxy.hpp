@@ -27,6 +27,7 @@ private:
 	std::string description;
 
 	int32_t currentSystem{ -1 };
+	int32_t currentSystemView{ -1 };
 
 	sf::FloatRect bounds;
 
@@ -52,4 +53,7 @@ private:
 	void recalculateView();
 
 	void setUpBorders();
+
+	void moveIntoSystem(int32_t current, int32_t viewPos);
+	void leaveSystem();
 };

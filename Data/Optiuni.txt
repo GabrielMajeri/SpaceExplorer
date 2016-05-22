@@ -19,7 +19,7 @@ AntiAliasing=4
 /// Titlul
 // Marimea in pixeli a titlului
 MarimeTextTitlu=60
-/// Culoarea RGB a fontului
+// Culoarea RGB a fontului
 CuloareTextTitlu=(255, 255, 255)
 
 MarimeTextInformatii=18
@@ -45,4 +45,10 @@ Nava_PutereRotire=100
 Nava_VitezaMax=100
 Nava_Incetinire=0.95
 
+/// Setari harta
+CuloareMargineGalaxie=(0, 40, 150, 100)
+CuloareMargineSistem=(200, 50, 20, 128)
+MarimeMargineSistem=30
+
+/// Harta care este deschisa cand se deschide programul
 Harta_Initiala=Grup Local.txt
