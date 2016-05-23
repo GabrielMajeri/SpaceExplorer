@@ -11,7 +11,9 @@ class System
 public:
 	System(Context& ctx, const sf::View& view, const std::string& path);
 
+	void update(const float dt);
 	void draw(sf::RenderTarget& tgt) const noexcept;
+
 
 	const sf::FloatRect& getBounds() const noexcept;
 

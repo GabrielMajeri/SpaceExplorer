@@ -3,9 +3,11 @@
 #include <string>
 #include <fstream>
 
+#include "Utility/NonCopyable.hpp"
+
 /// General purpose text file parsers. Scans file for different data types.
 /// Designed to load config files and game data.
-class Parser
+class Parser : NonCopyable
 {
 public:
 	/// Constructs a new parser and opens the file at path

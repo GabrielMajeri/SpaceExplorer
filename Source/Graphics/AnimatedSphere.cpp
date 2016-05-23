@@ -1,5 +1,6 @@
 #include "Graphics/AnimatedSphere.hpp"
 
+#include <cmath>
 
 AnimatedSphere::AnimatedSphere(sf::Texture& tex, float radius, const sf::Time& time)
 {

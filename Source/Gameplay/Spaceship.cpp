@@ -2,6 +2,8 @@
 
 #include "Utility/Tools.hpp"
 
+#include <cmath>
+
 Spaceship::Spaceship(Context& ctx, const sf::Texture& tex)
 : Entity{ tex }, ctx{ ctx },
 stillRect(0, 0, tex.getSize().x / 2, tex.getSize().y),

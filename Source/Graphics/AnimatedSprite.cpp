@@ -1,5 +1,7 @@
 #include "Graphics/AnimatedSprite.hpp"
 
+#include <cmath>
+
 AnimatedSprite::AnimatedSprite(const sf::Texture& spritesheet, uint32_t framesCount, const sf::Time& animTime)
 {
 	create(spritesheet, framesCount, animTime);

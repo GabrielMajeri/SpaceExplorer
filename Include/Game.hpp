@@ -3,8 +3,9 @@
 #include <SFML/Graphics.hpp>
 #include "Utility/Context.hpp"
 #include "State/StateManager.hpp"
+#include "Utility/NonCopyable.hpp"
 
-class Game
+class Game : NonCopyable
 {
 public:
 	Game();

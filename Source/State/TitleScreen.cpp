@@ -2,6 +2,8 @@
 
 #include "Utility/Tools.hpp"
 
+#include <cmath>
+
 constexpr const char infoString[]
 {
 R"info(Apăsați tasta ENTER pentru a continua.
@@ -37,11 +39,11 @@ TitleScreen::TitleScreen(StateManager& man)
 	ctx.tex.load("MilkyWay", "Data/Textures/Galaxy/MilkyWaySide.png");
 	galaxy.setTexture(ctx.tex["MilkyWay"]);
 
-	ctx.tex.load("Earth", "Data/Textures/Local Cluster/Planets/Earth.png");
+	ctx.tex.load("Earth", "Data/Textures/Local Cluster/Planets/EarthRectangle.png");
 	ctx.tex["Earth"].setSmooth(true);
 	earth.create(ctx.tex["Earth"], 160, sf::seconds(14));
 
-	ctx.tex.load("Moon", "Data/Textures/Local Cluster/Planets/Moon.png");
+	ctx.tex.load("Moon", "Data/Textures/Local Cluster/Planets/MoonRectangle.png");
 	ctx.tex["Moon"].setSmooth(true);
 	moon.create(ctx.tex["Moon"], 80, sf::seconds(8));
 

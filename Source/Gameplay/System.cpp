@@ -17,6 +17,19 @@ System::System(Context& ctx, const sf::View& view, const std::string& path)
 	bounds = { 0, 0, w * scale, h * scale };
 
 	setUpBorders();
+
+    ctx.tex.load("Soare", "Data/Textures/Local Cluster/Stars/Sun.png");
+    ctx.tex.load("Mercur", "Data/Textures/Local Cluster/Planets/Mercury.png");
+
+
+	objects.emplace_back(ctx, ctx.tex["Soare"], "Soare");
+	objects.back().setPosition(w / 2, h / 2);
+
+	objects.emplace_back(ctx, ctx.tex["Mercur"], "Mercur");
+	objects.back().setBodyToOrbit(&(*(objects.end() - 2)));
+	objects.back().setParams(1000, 500);
+	objects.back().setOrbitOffset({700, 0});
+	objects.back().setOrbitSpeed(0.5);
 }
 
 
@@ -58,6 +71,12 @@ void System::setUpBorders()
 
 	for(auto& border : borders)
 		border.setFillColor(ctx.om.getColorA("CuloareMargineSistem"));
+}
+
+void System::update(const float dt)
+{
+    for(auto& obj : objects)
+		obj.update(dt);
 }
 
 float System::getRadius() const noexcept

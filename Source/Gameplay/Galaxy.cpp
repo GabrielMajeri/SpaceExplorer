@@ -5,6 +5,8 @@
 
 #include "Utility/Tools.hpp"
 
+#include <cmath>
+
 constexpr const char enterText[]
 {
 	"Apăsați ENTER pentru a intra în "
@@ -158,6 +160,8 @@ void Galaxy::update(const float dt)
 	}
 	else // in system
 	{
+		systems[currentSystem].update(dt);
+
 		const auto& pos = spaceship->getPosition();
 		const auto& sz = spaceship->getLocalBounds();
 		const auto& bds = systems[currentSystem].getBounds();

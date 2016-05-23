@@ -11,10 +11,10 @@ public:
 
     bool exists(const std::string& id) noexcept;
 
-    void load(const std::string& id, const std::string& path) noexcept;
+    void load(const std::string& id, const std::string& path);
 
     template <typename P>
-    void load(const std::string& id, const std::string& path, const P& param) noexcept;
+    void load(const std::string& id, const std::string& path, const P& param);
 
     void unload(const std::string& id) noexcept;
 

@@ -11,7 +11,7 @@ bool ResourceHolder<R>::exists(const std::string& id) noexcept
 }
 
 template <typename R>
-void ResourceHolder<R>::load(const std::string& id, const std::string& path) noexcept
+void ResourceHolder<R>::load(const std::string& id, const std::string& path)
 {
 	if(exists(id))
 		return;
@@ -26,7 +26,7 @@ void ResourceHolder<R>::load(const std::string& id, const std::string& path) noe
 
 template <typename R>
 template <typename P>
-void ResourceHolder<R>::load(const std::string& id, const std::string& path, const P& param) noexcept
+void ResourceHolder<R>::load(const std::string& id, const std::string& path, const P& param)
 {
 	if(exists(id))
 		return;
@@ -43,7 +43,7 @@ template <typename R>
 void ResourceHolder<R>::unload(const std::string& id) noexcept
 {
 	if(resources.count(id) == 0)
-		throw std::runtime_error{ "[RESOURCES] Tried to unload resource that doesn't exist: " + id};
+		return;
 
 	resources.erase(id);
 }
