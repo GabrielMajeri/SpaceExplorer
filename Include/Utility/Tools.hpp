@@ -21,6 +21,8 @@ namespace Utility
 	constexpr float toRadians(float deg) { return deg * PI<float> / 180.f; }
 	constexpr float toDegrees(float rad) { return rad * 180.f / PI<float>; }
 
+	float abs(const sf::Vector2f& v);
+
 	sf::Vector2f fromPolar(float d, float angl);
 	std::pair<float, float> fromCartesian(const sf::Vector2f& vec);
 

@@ -40,6 +40,11 @@ namespace Utility
         return { d * std::cos(angl), d * std::sin(angl) };
 	}
 
+	float abs(const sf::Vector2f& v)
+	{
+        return sqrt(v.x * v.x + v.y * v.y);
+	}
+
 	std::pair<float, float> fromCartesian(const sf::Vector2f& vec)
 	{
 		return std::pair<float, float>{ std::sqrt(vec.x * vec.x + vec.y * vec.y), std::atan2(vec.y, vec.x) };

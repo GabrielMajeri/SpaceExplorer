@@ -19,9 +19,6 @@ public:
 	/// Sets the body to orbit, or pass nullptr to disable orbiting
 	void setBodyToOrbit(const Orbiter* other) noexcept;
 
-	/// Sets the offset of the orbit
-	void setOrbitOffset(const sf::Vector2f& off) noexcept;
-
 	/// Sets the speed of the orbit
 	void setOrbitSpeed(const float spd) noexcept;
 
@@ -30,17 +27,19 @@ public:
 
 	const sf::String& getLabel() const noexcept;
 
+	void rotateOrbit(float rad);
+
 private:
-	float a, b;
-	float currentPos;
-	float speed;
+	float a, b, currentPos, speed, areaSpeed{ 1 }, rot{ 0 };
+
 	sf::Vector2f off;
 
 	sf::Text label;
 
 	const Orbiter* orbitBody{ nullptr };
 
-    float angularVelocity;
+    void updateOffset();
+    sf::Vector2f getPositionAt(float deg);
 
     virtual void draw(sf::RenderTarget& tgt, sf::RenderStates states) const noexcept override;
 };

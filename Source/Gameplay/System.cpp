@@ -1,7 +1,7 @@
 #include "Gameplay/System.hpp"
 
 #include "Utility/Parser.hpp"
-
+#include "Utility/Tools.hpp"
 
 System::System(Context& ctx, const sf::View& view, const std::string& path)
 : ctx{ ctx }, currentView{ view }
@@ -26,10 +26,12 @@ System::System(Context& ctx, const sf::View& view, const std::string& path)
 	objects.back().setPosition(w / 2, h / 2);
 
 	objects.emplace_back(ctx, ctx.tex["Mercur"], "Mercur");
+
+	// 1000 px = 1 AU
+	objects.back().setParams(466, 307);
+	objects.back().setOrbitSpeed(0.1);
 	objects.back().setBodyToOrbit(&(*(objects.end() - 2)));
-	objects.back().setParams(1000, 500);
-	objects.back().setOrbitOffset({700, 0});
-	objects.back().setOrbitSpeed(0.5);
+	objects.back().rotateOrbit(Utility::PI<float> / 4);
 }
 
 

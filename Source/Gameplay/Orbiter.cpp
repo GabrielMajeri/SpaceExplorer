@@ -21,14 +21,22 @@ void Orbiter::setParams(const float a, const float b) noexcept
 	this->b = b;
 }
 
+void Orbiter::updateOffset()
+{
+	const auto& pos = orbitBody->getPosition();
+	auto fociDistance = std::sqrt(a * a + b * b) / 4.f;
+
+	off = { pos.x - fociDistance * std::cos(rot), pos.y - fociDistance * std::sin(rot) };
+}
+
 void Orbiter::setBodyToOrbit(const Orbiter* other) noexcept
 {
 	orbitBody = other;
-}
 
-void Orbiter::setOrbitOffset(const sf::Vector2f& off) noexcept
-{
-    this->off = off;
+	if(other != nullptr)
+	{
+		updateOffset();
+	}
 }
 
 void Orbiter::setOrbitSpeed(const float spd) noexcept
@@ -36,19 +44,39 @@ void Orbiter::setOrbitSpeed(const float spd) noexcept
     speed = spd;
 }
 
+void Orbiter::rotateOrbit(float rad)
+{
+	rot += rad;
+
+	updateOffset();
+}
+
+sf::Vector2f Orbiter::getPositionAt(float theta)
+{
+	const auto cosa = std::cos(rot), sina = std::sin(rot);
+	const auto cosb = std::cos(theta), sinb = std::sin(theta);
+
+	const auto x_cs = off.x + (a * cosa * cosb) - (b * sina * sinb);
+	const auto y_cs = off.y + (a * cosa * sinb) + (b * sina * cosb);
+
+	return { x_cs, y_cs };
+}
+
 void Orbiter::update(const float dt)
 {
 	if(orbitBody != nullptr)
 	{
-		currentPos += speed * dt;
+		currentPos += areaSpeed * speed * dt;
 		currentPos = Utility::clamp(currentPos, -360, 360);
 
-        float x_cs = off.x + a * std::cos(currentPos);
-        float y_cs = off.y + b * std::sin(currentPos);
+        sf::Vector2f newPos{ getPositionAt(currentPos + dt) };
 
         const auto& orbPos = orbitBody->getPosition();
 
-        setPosition(orbPos.x - x_cs, orbPos.y - y_cs);
+		float radius = 1000.0 / Utility::abs(orbPos - newPos);
+        areaSpeed = Utility::PI<float> * radius * radius;
+
+        setPosition(getPositionAt(currentPos));
 	}
 }
 
