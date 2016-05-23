@@ -15,14 +15,20 @@ public:
 
 	void stop();
 
+	const sf::Vector2f& getAccel() const noexcept;
+	float getAccelAbs() const noexcept;
+
+	void setControlsActive(bool active);
 private:
+	bool controlsActive{ true };
+
 	Context& ctx;
 	sf::IntRect stillRect, movingRect;
 
 	sf::Vector2f accel{ 0, 0 };
 	float rotAccel{ 0 };
 
-	const float maxVelocity{ 50.f }, damping{ 0.95f };
-	float mass{ 20 }, enginePower{ 300.f }, thrusterPower{ 50.f };
+	const float maxVelocity, damping;
+	float mass, enginePower, thrusterPower;
 
 };

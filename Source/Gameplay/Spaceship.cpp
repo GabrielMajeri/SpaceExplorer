@@ -18,6 +18,11 @@ thrusterPower{ ctx.om.getFloat("Nava_PutereRotire") }
 	sprite.setOrigin(stillRect.width / 2, stillRect.height / 2);
 }
 
+void Spaceship::setControlsActive(bool active)
+{
+	controlsActive = active;
+}
+
 void Spaceship::applyForce(sf::Vector2f force)
 {
     accel += force / mass;
@@ -29,27 +34,40 @@ void Spaceship::applyForcePolar(float direction, float force)
 	accel.y += (force * std::sin(direction)) / mass;
 }
 
+const sf::Vector2f& Spaceship::getAccel() const noexcept
+{
+	return accel;
+}
+
+float Spaceship::getAccelAbs() const noexcept
+{
+	return std::sqrt(accel.x * accel.x + accel.y * accel.y);
+}
+
 void Spaceship::update(const float dt)
 {
 	bool isMoving = false;
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	if(controlsActive)
 	{
-		applyForcePolar(Utility::toRadians(getRotation()), enginePower * dt);
-		isMoving = true;
-	}
-	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-	{
-		applyForcePolar(Utility::toRadians(getRotation()), -enginePower * dt);
-		isMoving = true;
-	}
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+		{
+			applyForcePolar(Utility::toRadians(getRotation()), enginePower * dt);
+			isMoving = true;
+		}
+		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		{
+			applyForcePolar(Utility::toRadians(getRotation()), -enginePower * dt);
+			isMoving = true;
+		}
 
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-	{
-		rotAccel += thrusterPower * dt / mass;
-	}
-	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-	{
-		rotAccel -= thrusterPower * dt / mass;
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		{
+			rotAccel += thrusterPower * dt / mass;
+		}
+		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		{
+			rotAccel -= thrusterPower * dt / mass;
+		}
 	}
 
 	sprite.setTextureRect(isMoving ? movingRect : stillRect);

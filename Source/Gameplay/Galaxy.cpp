@@ -133,9 +133,17 @@ void Galaxy::update(const float dt)
 
 	if(!inSystem())
 	{
-		if(spaceship->getPosition().x < bounds.left || spaceship->getPosition().y < bounds.top
-			|| spaceship->getPosition().x > bounds.left + bounds.width || spaceship->getPosition().y > bounds.top + bounds.height)
+		const auto& gb = spaceship->getGlobalBounds();
+		if(gb.left < bounds.left || gb.top < bounds.top
+			|| gb.left + gb.width > bounds.left + bounds.width ||
+			gb.top + gb.height > bounds.top + bounds.height)
+		{
+			const auto accel = spaceship->getAccel();
 			spaceship->stop();
+
+			spaceship->move(-accel * 0.5f);
+			spaceship->applyForce({accel.x * -15.f, accel.y * -15.f});
+		}
 
 		nearSystem = false;
 		nearEntrypoint = false;

@@ -40,9 +40,9 @@ Font_Titlu=Data/Fonts/Orbitron-Regular.ttf
 
 /// Nava Spatiala
 Nava_Masa=20
-Nava_PutereMotor=500
-Nava_PutereRotire=100
-Nava_VitezaMax=100
+Nava_PutereMotor=1000
+Nava_PutereRotire=500
+Nava_VitezaMax=5000
 Nava_Incetinire=0.95
 
 /// Setari harta
