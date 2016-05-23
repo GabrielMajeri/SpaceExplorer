@@ -48,7 +48,7 @@ private:
 		std::string description;
 	};
 
-	std::vector<System> systems;
+	std::vector<std::unique_ptr<System>> systems;
 	std::vector<SystemView> systemViews;
 
 	std::array<sf::RectangleShape, 4u> borders;

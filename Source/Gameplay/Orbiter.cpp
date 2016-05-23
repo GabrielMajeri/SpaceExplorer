@@ -44,6 +44,13 @@ void Orbiter::setOrbitSpeed(const float spd) noexcept
     speed = spd;
 }
 
+void Orbiter::setOrbitRotation(float rad) noexcept
+{
+	rot = rad;
+
+	updateOffset();
+}
+
 void Orbiter::rotateOrbit(float rad)
 {
 	rot += rad;
@@ -62,10 +69,13 @@ sf::Vector2f Orbiter::getPositionAt(float theta)
 	return { x_cs, y_cs };
 }
 
+
 void Orbiter::update(const float dt)
 {
 	if(orbitBody != nullptr)
 	{
+		updateOffset();
+
 		currentPos += areaSpeed * speed * dt;
 		currentPos = Utility::clamp(currentPos, -360, 360);
 
@@ -73,10 +83,10 @@ void Orbiter::update(const float dt)
 
         const auto& orbPos = orbitBody->getPosition();
 
-		float radius = 1000.0 / Utility::abs(orbPos - newPos);
-        areaSpeed = Utility::PI<float> * radius * radius;
+		float radius = Utility::abs(orbPos - newPos);
+        areaSpeed = 1000000.f / (Utility::PI<float> * radius * radius);
 
-        setPosition(getPositionAt(currentPos));
+		setPosition(getPositionAt(currentPos));
 	}
 }
 

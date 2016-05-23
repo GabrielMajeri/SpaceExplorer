@@ -65,7 +65,7 @@ Galaxy::Galaxy(Context& ctx, const std::string& filePath)
 		parser.getNextString(path);
 
 		if(path != ".")
-			systems.emplace_back(ctx, currentView, path);
+			systems.emplace_back(std::make_unique<System>(ctx, currentView, path));
 
 		std::string texName, texPath;
 
@@ -168,11 +168,11 @@ void Galaxy::update(const float dt)
 	}
 	else // in system
 	{
-		systems[currentSystem].update(dt);
+		systems[currentSystem]->update(dt);
 
 		const auto& pos = spaceship->getPosition();
 		const auto& sz = spaceship->getLocalBounds();
-		const auto& bds = systems[currentSystem].getBounds();
+		const auto& bds = systems[currentSystem]->getBounds();
 
 		if(pos.x < bds.left || pos.x + sz.width > bds.left + bds.width
 			|| pos.y < bds.top || pos.y + sz.height > bds.top + bds.height)
@@ -190,7 +190,7 @@ void Galaxy::draw(sf::RenderTarget& tgt) const noexcept
 	// Draw the planets / stars
 	if(inSystem())
 	{
-		systems[currentSystem].draw(tgt);
+		systems[currentSystem]->draw(tgt);
 	}
 	else
 	{
@@ -227,7 +227,7 @@ void Galaxy::recalculateView()
 	currentView.setSize(ctx.windowSize.x * viewZoom, ctx.windowSize.y * viewZoom);
 
 	for(auto& system : systems)
-		system.setUpBorders();
+		system->setUpBorders();
 
 	setUpBorders();
 }
@@ -264,8 +264,8 @@ void Galaxy::moveIntoSystem(int32_t i, int32_t viewPos)
 	currentSystem = i;
 	auto& sys = systems[currentSystem];
 
-	const auto r = sys.getRadius() - 50;
-	const auto mid = sys.getCenter();
+	const auto r = sys->getRadius() - 50;
+	const auto mid = sys->getCenter();
 	const auto ang = spaceship->getRotation();
 
 	spaceship->setPosition(mid.x - r * std::cos(Utility::toRadians(ang)), mid.y - r * std::sin(Utility::toRadians(ang)));

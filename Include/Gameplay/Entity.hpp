@@ -4,7 +4,7 @@
 
 /// An entity represents an object that is drawn on screen. The entity has
 /// an update function that represents a step taken in its internal state.
-/// It is basically doing Euler numerical integration with the dt parameter.
+/// It is doing Euler numerical integration with the dt parameter.
 class Entity : public sf::Transformable, public sf::Drawable
 {
 public:

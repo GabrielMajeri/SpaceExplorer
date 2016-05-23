@@ -22,17 +22,18 @@ public:
 	/// Sets the speed of the orbit
 	void setOrbitSpeed(const float spd) noexcept;
 
+	void setOrbitRotation(float rad) noexcept;
+	void rotateOrbit(float rad);
+
 	/// Updates this body
 	virtual void update(const float dt) override;
 
 	const sf::String& getLabel() const noexcept;
 
-	void rotateOrbit(float rad);
-
 private:
-	float a, b, currentPos, speed, areaSpeed{ 1 }, rot{ 0 };
+	float a{ 1 }, b{ 1 }, currentPos{ 0 }, speed{ 1 }, areaSpeed{ 1 }, rot{ 0 };
 
-	sf::Vector2f off;
+	sf::Vector2f off{ 0, 0 };
 
 	sf::Text label;
 

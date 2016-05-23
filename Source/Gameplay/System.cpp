@@ -18,20 +18,54 @@ System::System(Context& ctx, const sf::View& view, const std::string& path)
 
 	setUpBorders();
 
-    ctx.tex.load("Soare", "Data/Textures/Local Cluster/Stars/Sun.png");
-    ctx.tex.load("Mercur", "Data/Textures/Local Cluster/Planets/Mercury.png");
+	while(parser.skipToNextLine())
+	{
+		std::string label;
+		parser.getNextString(label);
 
+		std::string texId, texPath;
+		parser.skipToNextLine();
+		parser.getNextString(texId);
 
-	objects.emplace_back(ctx, ctx.tex["Soare"], "Soare");
-	objects.back().setPosition(w / 2, h / 2);
+		parser.skipToNextLine();
+		parser.getNextString(texPath);
 
-	objects.emplace_back(ctx, ctx.tex["Mercur"], "Mercur");
+		ctx.tex.load(texId, "Data/Textures/" + texPath);
 
-	// 1000 px = 1 AU
-	objects.back().setParams(466, 307);
-	objects.back().setOrbitSpeed(0.1);
-	objects.back().setBodyToOrbit(&(*(objects.end() - 2)));
-	objects.back().rotateOrbit(Utility::PI<float> / 4);
+		parser.skipToNextLine();
+		int32_t isFixed = parser.getNextInt();
+
+		parser.skipToNextLine();
+		if(isFixed)
+		{
+			float dist = parser.getNextFloat(), rot = parser.getNextFloat();
+
+			objects.emplace_back(std::make_unique<Orbiter>(ctx, ctx.tex[texId], label));
+
+			auto pos = Utility::fromPolar(dist, rot);
+			objects.back()->setPosition(pos.x + w / 2, pos.y + h / 2);
+		}
+		else
+		{
+			float apoapsis = parser.getNextFloat(), periapsis = parser.getNextFloat();
+
+			parser.skipToNextLine();
+			float spd = parser.getNextFloat();
+
+            parser.skipToNextLine();
+			uint32_t orbitedID = parser.getNextInt();
+
+			parser.skipToNextLine();
+			float rot = parser.getNextFloat();
+
+			objects.emplace_back(std::make_unique<Orbiter>(ctx, ctx.tex[texId], label));
+			objects.back()->setBodyToOrbit(objects[orbitedID].get());
+			objects.back()->setParams(apoapsis, periapsis);
+			objects.back()->setOrbitRotation(Utility::toRadians(rot));
+			objects.back()->setOrbitSpeed(spd);
+		}
+
+	}
 }
 
 
@@ -41,7 +75,7 @@ void System::draw(sf::RenderTarget& tgt) const noexcept
 		tgt.draw(border);
 
 	for(const auto& obj : objects)
-		tgt.draw(obj);
+		tgt.draw(*obj);
 }
 
 const sf::FloatRect& System::getBounds() const noexcept
@@ -78,7 +112,7 @@ void System::setUpBorders()
 void System::update(const float dt)
 {
     for(auto& obj : objects)
-		obj.update(dt);
+		obj->update(dt);
 }
 
 float System::getRadius() const noexcept
