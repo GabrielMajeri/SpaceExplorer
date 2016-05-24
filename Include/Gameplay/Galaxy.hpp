@@ -45,7 +45,7 @@ private:
 		Orbiter view;
 		int32_t assocSystem;
 
-		std::string description;
+		sf::String description;
 	};
 
 	std::vector<std::unique_ptr<System>> systems;

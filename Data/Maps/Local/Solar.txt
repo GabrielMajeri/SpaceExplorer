@@ -2,10 +2,10 @@
 
 // Scara
 // 1000 px = 1 Unitate Astronomica = Distanta Pamant <-> Soare
-1
+1000
 
 // Dimensiuni
-5000 5000
+50 50
 
 // Obiectele din sistem
 
@@ -31,7 +31,7 @@ Local Cluster/Planets/Mercury.png
 // Fix?
 0
 // Apoapsa si periapsa
-466.2 307.3
+0.4662 0.3073
 // Viteza orbitala (in pixeli / delta timp)
 1
 // Corpul orbitat (pozitia in lista, numarand de la 0)
@@ -44,8 +44,8 @@ Venus
 Venus
 Local Cluster/Planets/Venus.png
 0
-728.213 718.440
-0.75
+0.728213 0.718440
+0.744
 0
 56.844
 
@@ -54,8 +54,8 @@ Pământ
 Pamant
 Local Cluster/Planets/Earth.png
 0
-1016.73 983.2687
-0.65
+1.01673 0.9832687
+0.6335
 0
 114
 
@@ -64,7 +64,49 @@ Luna
 Luna
 Local Cluster/Planets/Moon.png
 0
-150 150
-0.1
+0.1 0.1
+0.021
 3
 0
+
+/// Marte
+Marte
+Marte
+Local Cluster/Planets/Mars.png
+0
+1.6660 1.3814
+0.51
+0
+286.502
+
+/// Ceres
+
+/// Jupiter
+Jupiter
+Jupiter
+Local Cluster/Planets/Jupiter.png
+0
+5.45492 4.95029
+0.278
+0
+273.867
+
+/// Uranus
+Uranus
+Uranus
+Local Cluster/Planets/Uranus.png
+0
+20.11 18.33
+0.144
+0
+96.998
+
+/// Neptun
+Neptun
+Neptun
+Local Cluster/Planets/Neptune.png
+0
+30.33 29.81
+0.1153
+0
+276.336

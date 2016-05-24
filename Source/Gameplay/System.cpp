@@ -38,16 +38,16 @@ System::System(Context& ctx, const sf::View& view, const std::string& path)
 		parser.skipToNextLine();
 		if(isFixed)
 		{
-			float dist = parser.getNextFloat(), rot = parser.getNextFloat();
+			float dist = parser.getNextFloat() * scale, rot = parser.getNextFloat() * scale;
 
 			objects.emplace_back(std::make_unique<Orbiter>(ctx, ctx.tex[texId], label));
 
 			auto pos = Utility::fromPolar(dist, rot);
-			objects.back()->setPosition(pos.x + w / 2, pos.y + h / 2);
+			objects.back()->setPosition(pos.x + bounds.width / 2, pos.y + bounds.height / 2);
 		}
 		else
 		{
-			float apoapsis = parser.getNextFloat(), periapsis = parser.getNextFloat();
+			float apoapsis = parser.getNextFloat() * scale, periapsis = parser.getNextFloat() * scale;
 
 			parser.skipToNextLine();
 			float spd = parser.getNextFloat();

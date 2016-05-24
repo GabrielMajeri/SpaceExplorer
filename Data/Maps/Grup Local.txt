@@ -4,11 +4,11 @@ Grupul Local de Stele
 Sistemul Solar și stelele aflate la maxim 50 Unități Astronomice. 
 
 // Dimensiuni
-// Scara 1000px = 1AU
-1
+// Scara 100px = 1 an lumina
+100
 
 // Marime X si Y (fata de scara)
-2000 2000
+60 60
 
 // Sistemul initial (sau -1 daca nu este determinat)
 -1
@@ -23,19 +23,33 @@ Sistemul Solar și stelele aflate la maxim 50 Unități Astronomice.
 Sistemul Solar
 Sistemul Solar este format din Soare, cele 8 planete care se invart in jurul lui\n si multe alte corpuri mai mici.\n Aici se afla si Pamantul.
 Local/Solar.txt
-BlueStar
-Stars/BlueStar.png
+OrangeStar
+Stars/OrangeStar.png
 
-1000 45
+4.2421 -65
 Alfa Centauri
-Alfa Centauri este o stea.
+Alfa Centauri este un sistem format din 3 stele.
 .
-BlueStar
+WhiteStar
+Stars/WhiteStar.png
+
+5.96301 4.65
+Steaua lui Barnard
+Steaua lui Barnard a fost descoperită în 1916.
+.
+WhiteStar
+Stars/WhiteStar.png
+
+7.7825 7
+Wolf 359
+Wolf este o stea.
+.
+WhiteStar
 .
 
-200 -30
+8.5828 -16.7
 Sirius
-Sirius este o stea.
+Sirius este un sistem format din 2 stele.
 .
-BlueStar
-.
+WhiteStar
+Stars/WhiteStar.png

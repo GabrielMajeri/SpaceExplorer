@@ -13,7 +13,7 @@ constexpr const char enterText[]
 };
 
 Galaxy::SystemView::SystemView(Context& ctx, sf::Texture& tex, const std::string& label, const std::string& description, int32_t pos)
-: view{ ctx, tex, label }, assocSystem{ pos }, description{ description }
+: view{ ctx, tex, label }, assocSystem{ pos }, description{ Utility::fromUTF8(description) }
 {
 	view.setOrigin(view.getLocalBounds().width / 2, view.getLocalBounds().height / 2);
 }
@@ -117,7 +117,7 @@ void Galaxy::handleEvent(const sf::Event& e)
 		}
 		else if(e.key.code == ctx.om.getKey("Tasta_ZoomOut"))
 		{
-			if(viewZoom < 10)
+			if(viewZoom < 25)
 				viewZoom += 1;
 
 			recalculateView();
