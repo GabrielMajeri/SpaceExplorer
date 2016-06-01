@@ -3,6 +3,8 @@
 #include "Utility/Tools.hpp"
 #include "Utility/Context.hpp"
 
+#include <cmath>
+
 Orbiter::Orbiter(const Context& ctx, const sf::Texture& tex, const std::string& name)
 : Entity(tex)
 {

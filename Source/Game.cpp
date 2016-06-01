@@ -5,8 +5,8 @@ Game::Game()
  window{
   ctx.om.getBool("EcranComplet") ?
 	sf::VideoMode::getFullscreenModes()[0] : sf::VideoMode{ ctx.om.getUInt("LatimeFereastra"), ctx.om.getUInt("LungimeFereastra") },
-  ctx.om.getUTFString("NumeFereastra"), ctx.om.getBool("EcranComplet") ? fullscreenStyle : windowedStyle
-  },
+  ctx.om.getUTFString("NumeFereastra"), ctx.om.getBool("EcranComplet") ? fullscreenStyle : windowedStyle,
+  sf::ContextSettings{ 0u, 0u, 0u, 2u, 0u, sf::ContextSettings::Attribute::Default } },
    isFullscreen{ ctx.om.getBool("EcranComplet") },
    states{ ctx }
 {
