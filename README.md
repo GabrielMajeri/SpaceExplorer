@@ -13,8 +13,8 @@ ESCAPE de 2 ori iese din program.
 
 ### Cerințe de sistem
 * **Sistem de operare**: Windows / Mac / Linux
-* **Procesor**: Pentium 4 sau mai nou, sau Athlon 64 (suport [SSE2](https://en.wikipedia.org/wiki/SSE2))
-* **Placa video**: suport pentru [OpenGL](https://www.opengl.org/) 1.1 sau mai nou
+* **Procesor**: Pentium 4 sau mai nou, sau Athlon 64
+* **Placa video**: suport pentru [OpenGL](https://www.opengl.org/) 2.0 sau mai nou
 * **Monitor**: rezolutie 800x600 sau mai mare
 * **Tastatură**: să aiba tastele W/A/S/D, Escape, Enter
 * **RAM**: peste 512 MB
