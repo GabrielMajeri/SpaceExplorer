@@ -12,6 +12,8 @@
 /// Soarele
 // Nume
 Soare
+// Descriere
+Soarele se află în centrul Sistemului Soloar. Soarele este o stea de tip G (pitic galbenă). Soarele are o rază de 100 de ori mai mare decât a Pământului.
 // ID Imagine
 Soare
 // Fisierul imagine (relativ fata de Data/Textures)
@@ -24,6 +26,8 @@ Local Cluster/Stars/Sun.png
 /// Mercur
 // Nume
 Mercur
+// Desc
+Mercur este planeta cea mai apropiata de Soare și cea mai mică din sistem. Orbitează Soarele la fiecare 88 de zile. Numele Mercur vine de la zeul roman al mesagerilor.
 // ID Imagine 
 Mercur
 // Fisier
@@ -41,6 +45,7 @@ Local Cluster/Planets/Mercury.png
 
 /// Venus
 Venus
+Venus este a doua planetă din Sistemul Solar. Deși relieful se aseamănă cu al Pământului, Venus are o atmosferă foarte toxică, și o climă la fel de periculoasă.
 Venus
 Local Cluster/Planets/Venus.png
 0
@@ -51,6 +56,7 @@ Local Cluster/Planets/Venus.png
 
 /// Pamant
 Pământ
+.
 Pamant
 Local Cluster/Planets/Earth.png
 0
@@ -61,6 +67,7 @@ Local Cluster/Planets/Earth.png
 
 /// Luna
 Luna
+.
 Luna
 Local Cluster/Planets/Moon.png
 0
@@ -71,6 +78,7 @@ Local Cluster/Planets/Moon.png
 
 /// Marte
 Marte
+.
 Marte
 Local Cluster/Planets/Mars.png
 0
@@ -83,6 +91,7 @@ Local Cluster/Planets/Mars.png
 
 /// Jupiter
 Jupiter
+.
 Jupiter
 Local Cluster/Planets/Jupiter.png
 0
@@ -93,6 +102,7 @@ Local Cluster/Planets/Jupiter.png
 
 /// Uranus
 Uranus
+.
 Uranus
 Local Cluster/Planets/Uranus.png
 0
@@ -103,6 +113,7 @@ Local Cluster/Planets/Uranus.png
 
 /// Neptun
 Neptun
+.
 Neptun
 Local Cluster/Planets/Neptune.png
 0

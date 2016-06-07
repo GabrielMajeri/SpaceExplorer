@@ -20,6 +20,7 @@ public:
 	void update(const float dt);
 	void draw(sf::RenderTarget& tgt) const noexcept;
 
+    Spaceship& getSpaceship();
 private:
 	Context& ctx;
 
@@ -44,8 +45,6 @@ private:
 
 		Orbiter view;
 		int32_t assocSystem;
-
-		sf::String description;
 	};
 
 	std::vector<std::unique_ptr<System>> systems;

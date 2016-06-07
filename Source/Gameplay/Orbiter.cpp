@@ -5,8 +5,8 @@
 
 #include <cmath>
 
-Orbiter::Orbiter(const Context& ctx, const sf::Texture& tex, const std::string& name)
-: Entity(tex)
+Orbiter::Orbiter(const Context& ctx, const sf::Texture& tex, const std::string& name, const std::string& description)
+: Entity(tex), description{ Utility::fromUTF8(description) }
 {
 	sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
 
@@ -103,4 +103,8 @@ void Orbiter::draw(sf::RenderTarget& tgt, sf::RenderStates states) const noexcep
 const sf::String& Orbiter::getLabel() const noexcept
 {
 	return label.getString();
+}
+const sf::String& Orbiter::getDescription() const noexcept
+{
+	return description;
 }

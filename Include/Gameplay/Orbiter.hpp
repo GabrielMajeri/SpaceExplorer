@@ -11,7 +11,7 @@ class Context;
 class Orbiter : public Entity
 {
 public:
-	Orbiter(const Context& ctx, const sf::Texture& tex, const std::string& name);
+	Orbiter(const Context& ctx, const sf::Texture& tex, const std::string& name, const std::string& description);
 
 	/// Set the parameters of the orbit
 	void setParams(const float a, const float b) noexcept;
@@ -29,6 +29,7 @@ public:
 	virtual void update(const float dt) override;
 
 	const sf::String& getLabel() const noexcept;
+	const sf::String& getDescription() const noexcept;
 
 private:
 	float a{ 1 }, b{ 1 }, currentPos{ 0 }, speed{ 1 }, areaSpeed{ 1 }, rot{ 0 };
@@ -36,6 +37,7 @@ private:
 	sf::Vector2f off{ 0, 0 };
 
 	sf::Text label;
+	sf::String description;
 
 	const Orbiter* orbitBody{ nullptr };
 

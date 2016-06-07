@@ -3,8 +3,10 @@
 #include "Utility/Parser.hpp"
 #include "Utility/Tools.hpp"
 
-System::System(Context& ctx, const sf::View& view, const std::string& path)
-: ctx{ ctx }, currentView{ view }
+#include "Gameplay/Galaxy.hpp"
+
+System::System(Context& ctx, const sf::View& view, Galaxy& galaxy, const std::string& path)
+: ctx{ ctx }, galaxy{ galaxy }, currentView{ view }
 {
 	Parser parser{ "Data/Maps/" + path };
 
@@ -22,12 +24,16 @@ System::System(Context& ctx, const sf::View& view, const std::string& path)
 	{
 		std::string label;
 		parser.getNextString(label);
+		parser.skipToNextLine();
+
+		std::string descr;
+		parser.getNextString(descr);
+		parser.skipToNextLine();
 
 		std::string texId, texPath;
-		parser.skipToNextLine();
 		parser.getNextString(texId);
-
 		parser.skipToNextLine();
+
 		parser.getNextString(texPath);
 
 		ctx.tex.load(texId, "Data/Textures/" + texPath);
@@ -36,11 +42,12 @@ System::System(Context& ctx, const sf::View& view, const std::string& path)
 		int32_t isFixed = parser.getNextInt();
 
 		parser.skipToNextLine();
+
+		objects.emplace_back(std::make_unique<Orbiter>(ctx, ctx.tex[texId], label, descr));
+
 		if(isFixed)
 		{
 			float dist = parser.getNextFloat() * scale, rot = parser.getNextFloat() * scale;
-
-			objects.emplace_back(std::make_unique<Orbiter>(ctx, ctx.tex[texId], label));
 
 			auto pos = Utility::fromPolar(dist, rot);
 			objects.back()->setPosition(pos.x + bounds.width / 2, pos.y + bounds.height / 2);
@@ -58,7 +65,6 @@ System::System(Context& ctx, const sf::View& view, const std::string& path)
 			parser.skipToNextLine();
 			float rot = parser.getNextFloat();
 
-			objects.emplace_back(std::make_unique<Orbiter>(ctx, ctx.tex[texId], label));
 			objects.back()->setBodyToOrbit(objects[orbitedID].get());
 			objects.back()->setParams(apoapsis, periapsis);
 			objects.back()->setOrbitRotation(Utility::toRadians(rot));
@@ -66,8 +72,23 @@ System::System(Context& ctx, const sf::View& view, const std::string& path)
 		}
 
 	}
+
+	descript.setFont(ctx.fonts["Normal"]);
+	descript.setFillColor(sf::Color::White);
 }
 
+void System::recalculateGUI(uint32_t textSize) noexcept
+{
+	setUpBorders();
+
+	descript.setCharacterSize(textSize);
+
+	Utility::centerText(descript);
+	descript.setPosition(ctx.windowSize.x / 2, ctx.windowSize.y - descript.getLocalBounds().height * 2);
+
+	textBackground.setSize({descript.getLocalBounds().width + 20, descript.getLocalBounds().height + 20});
+	textBackground.setPosition(descript.getGlobalBounds().left - 10, descript.getGlobalBounds().top - 10);
+}
 
 void System::draw(sf::RenderTarget& tgt) const noexcept
 {
@@ -76,6 +97,15 @@ void System::draw(sf::RenderTarget& tgt) const noexcept
 
 	for(const auto& obj : objects)
 		tgt.draw(*obj);
+
+	if(nearPlanet)
+	{
+		auto vw = tgt.getView();
+		tgt.setView(tgt.getDefaultView());
+		tgt.draw(textBackground);
+		tgt.draw(descript);
+		tgt.setView(vw);
+	}
 }
 
 const sf::FloatRect& System::getBounds() const noexcept
@@ -111,8 +141,19 @@ void System::setUpBorders()
 
 void System::update(const float dt)
 {
+	nearPlanet = false;
     for(auto& obj : objects)
+	{
 		obj->update(dt);
+
+		if(obj->getGlobalBounds().intersects(galaxy.getSpaceship().getGlobalBounds()))
+		{
+            nearPlanet = true;
+			descript.setString(obj->getDescription());
+			Utility::centerText(descript);
+			descript.setPosition(ctx.windowSize.x / 2, ctx.windowSize.y - descript.getLocalBounds().height * 2);
+		}
+	}
 }
 
 float System::getRadius() const noexcept

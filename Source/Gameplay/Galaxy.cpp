@@ -13,7 +13,7 @@ constexpr const char enterText[]
 };
 
 Galaxy::SystemView::SystemView(Context& ctx, sf::Texture& tex, const std::string& label, const std::string& description, int32_t pos)
-: view{ ctx, tex, label }, assocSystem{ pos }, description{ Utility::fromUTF8(description) }
+: view{ ctx, tex, label, description }, assocSystem{ pos }
 {
 	view.setOrigin(view.getLocalBounds().width / 2, view.getLocalBounds().height / 2);
 }
@@ -65,7 +65,7 @@ Galaxy::Galaxy(Context& ctx, const std::string& filePath)
 		parser.getNextString(path);
 
 		if(path != ".")
-			systems.emplace_back(std::make_unique<System>(ctx, currentView, path));
+			systems.emplace_back(std::make_unique<System>(ctx, currentView, *this, path));
 
 		std::string texName, texPath;
 
@@ -91,6 +91,11 @@ Galaxy::Galaxy(Context& ctx, const std::string& filePath)
 
 	recalculateView();
 	rescaleUI();
+}
+
+Spaceship& Galaxy::getSpaceship()
+{
+	return *spaceship;
 }
 
 bool Galaxy::inSystem() const noexcept
@@ -161,7 +166,7 @@ void Galaxy::update(const float dt)
 						moveIntoSystem(it->assocSystem, it - std::begin(systemViews));
 				}
 
-				systemDescription.setString(it->description);
+				systemDescription.setString(it->view.getDescription());
 
 				rescaleUI();
 			}
@@ -189,9 +194,7 @@ void Galaxy::draw(sf::RenderTarget& tgt) const noexcept
 
 	// Draw the planets / stars
 	if(inSystem())
-	{
 		systems[currentSystem]->draw(tgt);
-	}
 	else
 	{
 		for(const auto& systemView : systemViews)
@@ -227,7 +230,7 @@ void Galaxy::recalculateView()
 	currentView.setSize(ctx.windowSize.x * viewZoom, ctx.windowSize.y * viewZoom);
 
 	for(auto& system : systems)
-		system->setUpBorders();
+		system->recalculateGUI(systemDescription.getCharacterSize());
 
 	setUpBorders();
 }
@@ -294,6 +297,9 @@ void Galaxy::rescaleUI()
 	enterSystemInfo.setPosition(ctx.windowSize.x / 2, 50);
 
 	systemDescription.setCharacterSize(scaleFactor * ctx.om.getUInt("MarimeTextDescriere"));
+
+	for(auto& system : systems)
+		system->recalculateGUI(systemDescription.getCharacterSize());
 
 	Utility::centerText(systemDescription);
 	systemDescription.setPosition(ctx.windowSize.x / 2, ctx.windowSize.y - systemDescription.getLocalBounds().height * 1.5);
