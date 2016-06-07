@@ -57,7 +57,7 @@ System::System(Context& ctx, const sf::View& view, Galaxy& galaxy, const std::st
 			float apoapsis = parser.getNextFloat() * scale, periapsis = parser.getNextFloat() * scale;
 
 			parser.skipToNextLine();
-			float spd = parser.getNextFloat();
+			float spd = parser.getNextFloat() / 10;
 
             parser.skipToNextLine();
 			uint32_t orbitedID = parser.getNextInt();
@@ -75,13 +75,18 @@ System::System(Context& ctx, const sf::View& view, Galaxy& galaxy, const std::st
 
 	descript.setFont(ctx.fonts["Normal"]);
 	descript.setFillColor(sf::Color::White);
+
+	textBackground.setFillColor(ctx.om.getColor("CuloareFundalDescriere"));
+
+	recalculateGUI(ctx.om.getUInt("MarimeTextDescriere"));
 }
 
 void System::recalculateGUI(uint32_t textSize) noexcept
 {
 	setUpBorders();
 
-	descript.setCharacterSize(textSize);
+	if(textSize != 0)
+		descript.setCharacterSize(textSize);
 
 	Utility::centerText(descript);
 	descript.setPosition(ctx.windowSize.x / 2, ctx.windowSize.y - descript.getLocalBounds().height * 2);
@@ -152,6 +157,8 @@ void System::update(const float dt)
 			descript.setString(obj->getDescription());
 			Utility::centerText(descript);
 			descript.setPosition(ctx.windowSize.x / 2, ctx.windowSize.y - descript.getLocalBounds().height * 2);
+
+			recalculateGUI(0);
 		}
 	}
 }

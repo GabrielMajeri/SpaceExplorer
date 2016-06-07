@@ -47,6 +47,12 @@ TitleScreen::TitleScreen(StateManager& man)
 	ctx.tex["Moon"].setSmooth(true);
 	moon.create(ctx.tex["Moon"], 80, sf::seconds(8));
 
+	music.openFromFile("Data/Music/Fanfare for Space.ogg");
+
+	music.play();
+
+	music.setLoop(true);
+
 	repositionGUI();
 }
 
@@ -54,6 +60,8 @@ TitleScreen::~TitleScreen()
 {
 	ctx.fonts.unload("TitleScreenFont");
 	ctx.tex.clear();
+
+	music.stop();
 }
 
 void TitleScreen::handleEvent(const sf::Event& e)
@@ -66,7 +74,7 @@ void TitleScreen::handleEvent(const sf::Event& e)
 			mgr.add(StateManager::StateID::Running);
 		}
 		else if(e.key.code == sf::Keyboard::Escape)
-			std::exit(0);
+			mgr.clear();
 	}
 	else if(e.type == sf::Event::Resized)
 		repositionGUI();

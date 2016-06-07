@@ -4,12 +4,15 @@
 
 #include "Gameplay/Galaxy.hpp"
 
+#include <SFML/Audio/Music.hpp>
+
 class StateManager;
 
 class RunningState final : public State
 {
 public:
 	RunningState(StateManager& man);
+	~RunningState();
 
 	void run();
 
@@ -19,4 +22,6 @@ public:
 
 private:
 	std::unique_ptr<Galaxy> galaxy;
+
+	sf::Music bgm;
 };

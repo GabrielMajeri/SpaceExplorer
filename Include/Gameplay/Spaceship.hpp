@@ -18,9 +18,8 @@ public:
 	const sf::Vector2f& getAccel() const noexcept;
 	float getAccelAbs() const noexcept;
 
-	void setControlsActive(bool active);
 private:
-	bool controlsActive{ true };
+	sf::Keyboard::Key accKey, decKey, leftKey, rightKey;
 
 	Context& ctx;
 	sf::IntRect stillRect, movingRect;

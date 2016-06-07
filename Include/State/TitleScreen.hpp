@@ -3,6 +3,8 @@
 #include "State/StateManager.hpp"
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
+
 #include "Graphics/AnimatedSphere.hpp"
 #include "Graphics/Starfield.hpp"
 
@@ -21,6 +23,8 @@ private:
     sf::Sprite galaxy;
 	Starfield field;
 	AnimatedSphere earth, moon;
+
+	sf::Music music;
 
     void repositionGUI();
 };

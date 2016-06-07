@@ -84,22 +84,27 @@ void StateManager::updateGameState()
 
 void StateManager::handleEvent(const sf::Event& ev)
 {
-	assert(!stateStack.empty());
 	if(ev.type == sf::Event::Resized)
 		for(auto& state : stateStack)
 			state->handleEvent(ev);
-	else
+	else if(!stateStack.empty())
 		stateStack.back()->handleEvent(ev);
 }
 
 void StateManager::update(const float dt)
 {
-	assert(!stateStack.empty());
-	stateStack.back()->update(dt);
+	if(!stateStack.empty())
+		stateStack.back()->update(dt);
 }
 
 void StateManager::draw(sf::RenderTarget& tgt)
 {
-	assert(!stateStack.empty());
-	stateStack.back()->draw(tgt);
+	if(!stateStack.empty())
+		stateStack.back()->draw(tgt);
+}
+
+
+bool StateManager::isEmpty() const noexcept
+{
+	return stateStack.empty() && ops.empty();
 }

@@ -21,7 +21,7 @@ public:
 	void update(const float dt);
 	void draw(sf::RenderTarget& tgt);
 
-
+	bool isEmpty() const noexcept;
 private:
 	friend class State;
 	Context& ctx;

@@ -4,11 +4,11 @@ Grupul Local de Stele
 Sistemul Solar și stelele aflate la maxim 50 Unități Astronomice. 
 
 // Dimensiuni
-// Scara 100px = 1 an lumina
-100
+// Scara
+250
 
 // Marime X si Y (fata de scara)
-60 60
+50 25
 
 // Sistemul initial (sau -1 daca nu este determinat)
 -1
@@ -28,24 +28,10 @@ Stars/OrangeStar.png
 
 4.2421 -65
 Alfa Centauri
-Alfa Centauri este un sistem format din 3 stele.
+Alfa Centauri este un sistem format din 3 stele.\n Este sistemul cel mai apropiat de Soare.
 .
 WhiteStar
 Stars/WhiteStar.png
-
-5.96301 4.65
-Steaua lui Barnard
-Steaua lui Barnard a fost descoperită în 1916.
-.
-WhiteStar
-Stars/WhiteStar.png
-
-7.7825 7
-Wolf 359
-Wolf este o stea.
-.
-WhiteStar
-.
 
 8.5828 -16.7
 Sirius
@@ -53,3 +39,31 @@ Sirius este un sistem format din 2 stele.
 .
 WhiteStar
 Stars/WhiteStar.png
+
+7.7825 7
+Wolf 359
+Wolf este o stea aflată în constelația Leu.\n Se află la o distanță de 7.8 ani lumină de Pământ.
+.
+WhiteStar
+.
+
+8.5828 -16.7
+Sirius
+Sirius este un sistem format din 2 stele.\n Se află în constelația Câinele Mare.
+.
+WhiteStar
+Stars/WhiteStar.png
+
+11.402 5.22
+Procyon
+Procyon, sau Alfa Câinele Mare, este un sistem binar.\n „Procyon” înseamnă „înaintea câinelui”.
+.
+WhiteStar
+Stars/WhiteStar.png
+
+15.342 -14.15
+Gliese 876
+Gliese 876 este o stea pitic roșu care are un sistem cu mai multe planete.\n Este cea mai apropiată stea care are\n un astfel de sistem multi-planetar.
+Local/Gliese876.txt
+RedStar
+Stars/RedStar.png

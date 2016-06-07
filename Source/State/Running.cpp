@@ -5,7 +5,16 @@
 RunningState::RunningState(StateManager& man)
 : State{ man }, galaxy{ std::make_unique<Galaxy>(ctx, ctx.om.getString("Harta_Initiala")) }
 {
+	bgm.openFromFile(ctx.om.getString("MuzicaFundal"));
 
+	bgm.setLoop(true);
+
+	bgm.play();
+}
+
+RunningState::~RunningState()
+{
+    bgm.stop();
 }
 
 void RunningState::handleEvent(const sf::Event& e)

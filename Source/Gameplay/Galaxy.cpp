@@ -78,7 +78,7 @@ Galaxy::Galaxy(Context& ctx, const std::string& filePath)
 		ctx.tex.load(texName, "Data/Textures/" + texPath);
 
 		systemViews.emplace_back(ctx, ctx.tex[texName], name, desc, (path != "." ? systems.size() - 1 : -1));
-		systemViews.back().view.setPosition(scale * Utility::fromPolar(dist, rad));
+		systemViews.back().view.setPosition(Utility::fromPolar(scale * dist, rad));
 	}
 
 	enterSystemInfo.setFont(ctx.fonts["Bold"]);
@@ -144,10 +144,10 @@ void Galaxy::update(const float dt)
 			gb.top + gb.height > bounds.top + bounds.height)
 		{
 			const auto accel = spaceship->getAccel();
-			spaceship->stop();
 
-			spaceship->move(-accel * 0.5f);
-			spaceship->applyForce({accel.x * -15.f, accel.y * -15.f});
+			spaceship->move(-accel * 1.5f);
+			spaceship->stop();
+			spaceship->rotate(-180);
 		}
 
 		nearSystem = false;

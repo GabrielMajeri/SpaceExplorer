@@ -44,6 +44,9 @@ void Game::run()
 			{
 				update(deltaTime);
 				states.updateGameState();
+
+				if(states.isEmpty())
+					isRunning = false;
 			}
 		}
 

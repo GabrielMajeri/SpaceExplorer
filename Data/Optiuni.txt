@@ -32,6 +32,10 @@ MarimeTextCopyright=14
 Tasta_EcranComplet=95
 Tasta_ZoomOut=68
 Tasta_ZoomIn=67
+Tasta_Accelerare=22
+Tasta_Decelerare=18
+Tasta_Stanga=0
+Tasta_Dreapta=3
 
 /// Fonturi
 Font_Normal=Data/Fonts/Ubuntu-Regular.ttf
@@ -50,8 +54,12 @@ CuloareMargineGalaxie=(0, 40, 150, 100)
 CuloareMargineSistem=(200, 50, 20, 128)
 MarimeMargineSistem=30
 MarimeTextGalaxie=20
-MarimeTextDescriere=18
+MarimeTextDescriere=22
 CuloareFundalDescriere=(50, 50, 50, 128)
 
 /// Harta care este deschisa cand se deschide programul
 Harta_Initiala=Grup Local.txt
+
+/// Muzica
+// Muzica de fundal
+MuzicaFundal=Data/Music/Wizardtorium.ogg

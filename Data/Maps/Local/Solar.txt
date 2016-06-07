@@ -1,11 +1,11 @@
 // Sistemul Solar
 
 // Scara
-// 1000 px = 1 Unitate Astronomica = Distanta Pamant <-> Soare
+// 500 px = 1 Unitate Astronomica = Distanta Pamant <-> Soare
 1000
 
 // Dimensiuni
-50 50
+40 40
 
 // Obiectele din sistem
 
@@ -13,7 +13,7 @@
 // Nume
 Soare
 // Descriere
-Soarele se află în centrul Sistemului Soloar. Soarele este o stea de tip G (pitic galbenă). Soarele are o rază de 100 de ori mai mare decât a Pământului.
+Soarele se află în centrul Sistemului Soloar.\nSoarele este o stea de tip G (pitic galben).\nSoarele are o rază de 100 de ori mai mare decât a Pământului.
 // ID Imagine
 Soare
 // Fisierul imagine (relativ fata de Data/Textures)
@@ -27,7 +27,7 @@ Local Cluster/Stars/Sun.png
 // Nume
 Mercur
 // Desc
-Mercur este planeta cea mai apropiata de Soare și cea mai mică din sistem. Orbitează Soarele la fiecare 88 de zile. Numele Mercur vine de la zeul roman al mesagerilor.
+Mercur este planeta cea mai apropiata de Soare și cea mai mică din sistem.\nOrbitează Soarele la fiecare 88 de zile.\nNumele Mercur vine de la zeul roman al mesagerilor.
 // ID Imagine 
 Mercur
 // Fisier
@@ -45,7 +45,7 @@ Local Cluster/Planets/Mercury.png
 
 /// Venus
 Venus
-Venus este a doua planetă din Sistemul Solar. Deși relieful se aseamănă cu al Pământului, Venus are o atmosferă foarte toxică, și o climă la fel de periculoasă.
+Venus este a doua planetă din Sistemul Solar.\n Deși relieful se aseamănă cu al Pământului,\n Venus are o atmosferă foarte toxică,\n și o climă la fel de periculoasă.
 Venus
 Local Cluster/Planets/Venus.png
 0
@@ -56,7 +56,7 @@ Local Cluster/Planets/Venus.png
 
 /// Pamant
 Pământ
-.
+Pământul este planeta pe care locuim.\n Satelitul natural al Pământului este Luna.
 Pamant
 Local Cluster/Planets/Earth.png
 0
@@ -67,7 +67,7 @@ Local Cluster/Planets/Earth.png
 
 /// Luna
 Luna
-.
+Luna este satelitul Pământului.\n Luna are o gravitație de aproape\n 6 ori mai mică decât cea a Pământului.
 Luna
 Local Cluster/Planets/Moon.png
 0
@@ -78,7 +78,7 @@ Local Cluster/Planets/Moon.png
 
 /// Marte
 Marte
-.
+Marte este numită după zeul roman al războiului.\n Marte are doi sateliți naturali, \nDeimos și Phobos.
 Marte
 Local Cluster/Planets/Mars.png
 0
@@ -87,11 +87,10 @@ Local Cluster/Planets/Mars.png
 0
 286.502
 
-/// Ceres
 
 /// Jupiter
 Jupiter
-.
+Jupiter este cea mai mare planetă din sistem.\n Jupiter este un gigant gazos,\n cu furtuni care durează sute de ani\n și cu un centru foarte încins și dens.
 Jupiter
 Local Cluster/Planets/Jupiter.png
 0
@@ -102,7 +101,7 @@ Local Cluster/Planets/Jupiter.png
 
 /// Uranus
 Uranus
-.
+Numele planetei Uranus vine din mitologia greacă,\n de la zeul cerului.\n Uranus este un gigant înghețat,\n cu vânturi care ating și 200 km/h.
 Uranus
 Local Cluster/Planets/Uranus.png
 0
@@ -113,7 +112,7 @@ Local Cluster/Planets/Uranus.png
 
 /// Neptun
 Neptun
-.
+Neptun e cea mai densă planetă din sistemul solar,\n și are vânturi care ating și 2100 km/h.\n Numele planetei vine de la zeul roman al mării.
 Neptun
 Local Cluster/Planets/Neptune.png
 0

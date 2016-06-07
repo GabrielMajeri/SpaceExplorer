@@ -36,9 +36,7 @@ void Orbiter::setBodyToOrbit(const Orbiter* other) noexcept
 	orbitBody = other;
 
 	if(other != nullptr)
-	{
 		updateOffset();
-	}
 }
 
 void Orbiter::setOrbitSpeed(const float spd) noexcept

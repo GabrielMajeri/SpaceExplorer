@@ -1,0 +1,74 @@
+// Gliese 876
+
+// Scara
+1000
+
+// Dimensiuni
+10 10
+
+// Obiectele din sistem
+
+/// Gliese 876
+// Nume
+Gliese 876
+// Descriere
+Gliese 876 este un pitic roșu.
+// ID Imagine
+Gliese876
+// Fisierul imagine (relativ fata de Data/Textures)
+Stars/RedStar.png
+// Fix sau se invarte?
+1 
+// Pozitie (polara) (doar daca  este fix)
+0 0
+
+/// d
+Gliese 876 d
+A fost descoperită în 2005. E o planetă terestră.
+// ID Imagine 
+Mercur
+// Fisier
+Planets/Gray.png
+// Fix?
+0
+// Apoapsa si periapsa
+0.235 0.234
+// Viteza orbitala (in pixeli / delta timp)
+1
+// Corpul orbitat (pozitia in lista, numarand de la 0)
+0
+// Daca orbita este rotita, cu cate grade
+59
+
+/// c
+Gliese 876 c
+Gliese 876 c a fost descoperită în 2001.\n Este o planetă gigantică, cu masa apropiată\n cu cea a lui Jupiter.
+Gliese 876 c
+Planets/Gray.png
+0
+1.3 1.67
+0.744
+0
+56.844
+
+/// b
+Gliese 876 b
+Gliese 876 b a fost descoperită în 1998 și\n este de 2 ori mai grea decât Jupiter.
+Gliese 876 b
+Planets/Gray.png
+0
+2.1 2.3
+0.6335
+0
+114
+
+/// e
+Gliese 876 e
+Gliese 876 e a fost descoperită în 2010 și\n are o masă apropiată cu cea a lui Uranus.
+Gliese 876 e
+Planets/Gray.png
+0
+3.2 3.1
+0.021
+0
+0

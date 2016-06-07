@@ -20,7 +20,9 @@ void PausedState::handleEvent(const sf::Event& e)
 	if(e.type == sf::Event::KeyPressed)
 	{
 		if(e.key.code == sf::Keyboard::Escape)
-			std::exit(0);
+		{
+			mgr.clear();
+		}
 		else if(e.key.code == sf::Keyboard::Return)
 			mgr.pop();
 	}
