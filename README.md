@@ -18,7 +18,7 @@ ESCAPE de 2 ori iese din program.
 * **Monitor**: rezolutie 800x600 sau mai mare
 * **Tastatură**: să aiba tastele W/A/S/D, Escape, Enter
 * **RAM**: peste 512 MB
-* **Spatiu de stocare**: cel puțin 100 MB spațiu liber
+* **Spatiu de stocare**: cel puțin 50 MB spațiu liber
 
 ### Tehnologii folosite
 * C++14
@@ -34,3 +34,4 @@ ESCAPE de 2 ori iese din program.
 ### Resurse utilizate (imagini, documentație)
 * NASA
 * wikipedia.org
+* Muzică: incompetech.com
