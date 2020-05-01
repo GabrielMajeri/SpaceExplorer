@@ -1,10 +1,10 @@
 # Space Explorer
 Program educativ care permite utilizatorului să exploreze o regiune a spațiului.
 
-Programul vine inclus cu un model al Sistemului Solar și câteva stele apropiate. 
+Programul vine inclus cu un model al Sistemului Solar și câteva stele apropiate.
 Distanțele sunt la scară. Dimensiunile stelelor / planetelor nu sunt la scară (ar fi prea mici).
 
-Se pot schimba setările în fișierul "Optiuni.txt", și se pot adăuga noi hărți foarte ușor. 
+Se pot schimba setările în fișierul "Optiuni.txt", și se pot adăuga noi hărți foarte ușor.
 
 ### Control
 Nava spațială se deplasează cu W/A/S/D (poate fi schimbat in setări).
@@ -21,12 +21,16 @@ ESCAPE de 2 ori iese din program.
 * **Spatiu de stocare**: cel puțin 50 MB spațiu liber
 
 ### Tehnologii folosite
-* C++14
-* SFML
+* [GNU G++](https://gcc.gnu.org/)
+* [SFML](https://www.sfml-dev.org/)
 
 ### Compilare
-* Compilator [GNU G++](https://gcc.gnu.org/) cu suport pentru C++14
-* Biblioteca [SFML Dev](http://www.sfml-dev.org/artifacts/by-branch/master/)
+Pentru a compila și rula jocul, executați următoarele comenzi:
+```sh
+meson . build
+ninja -C build
+./build/SpaceExplorer
+```
 
 ### Licență
 [GNU General Public License V3](http://www.gnu.org/licenses/gpl-3.0.html)
